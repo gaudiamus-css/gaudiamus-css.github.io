@@ -1,0 +1,45 @@
+$columns: 12;
+$items: 6;
+
+
+.grid{
+  display: grid;
+}
+[class^='grid-']{
+  display: grid;
+  grid-template-rows: auto;
+}
+
+$grid-item-properties:("start","end","center","stretch");
+@each $property in $grid-item-properties{
+  .place-x-#{$property}{ justify-self: unquote($property)}
+  .place-y-#{$property}{ align-self: unquote($property)}
+  @each $breakpoint, $value in $breakpoints {
+    @media (min-width: $value) {
+      .#{$breakpoint}\:place-x-#{$property}{ justify-self: unquote($property)}
+      .#{$breakpoint}\:place-y-#{$property}{ align-self: unquote($property)}
+    }
+  }
+}
+
+@mixin deep-grid($currentTotal, $currentClass, $currentValues, $level){
+  @for $k from 1 through $columns{
+    $newTotal: $currentTotal + $k;
+    @if ($newTotal <= $columns){
+      $newValues: unquote($currentValues + ' '+(100/12*($k))+'%');
+      $newClass: unquote($currentClass + '-'+ ($k));
+      #{$newClass} { grid-template-columns: $newValues }
+      @if($level < $items){
+        @include deep-grid($newTotal, $newClass, $newValues, $level + 1)
+      }
+    }
+  }
+}
+@include deep-grid(0,'.grid','',1);
+
+@each $breakpoint, $value in $breakpoints {
+  @media (min-width: $value) {
+    @include deep-grid(0,'.#{$breakpoint}\\:grid','',1);
+  }
+}
+

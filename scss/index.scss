@@ -1,0 +1,53 @@
+
+
+/* Grid */
+$breakpoints: ("md":768px,"lg":1024px) !default;
+
+@import "components/grid";
+
+/* Spacing */
+$baseSpacing: 20px !default;
+$spacingUnit: 'rem' !default;
+$spacingStep: .25 !default;
+$numSpacingUnits: 5 !default;
+
+@import "components/spacing";
+
+/* Colors */
+$primaryColor: #258cc7 !default;
+$accentColor: #21d593 !default;
+$successColor: #1f921f !default;
+$warningColor: #c92d2d !default;
+$gray: rgba(0,0,0,.2) !default;
+$white: #e8e5e5 !default;
+$black: #101010 !default;
+
+$color-class-map:("bg":"background-color","text":"color","b":"border-color") !default;
+
+$color-map:(
+        "primary":$primaryColor,
+        "accent":$accentColor,
+        "success":$successColor,
+        "warning":$warningColor,
+        "transparent":transparent,
+        "gray": $gray,
+        "white": $white,
+        "black": $black
+) !default;
+$state-map:("focus","hover","active");
+
+@import "components/colors";
+
+/* Shading & borders*/
+
+$depth: 3 !default;
+$spread: 4px !default;
+
+@import "components/shading";
+
+@import "components/form";
+
+$fontSizes:("sm":3, "md":5, "lg":7, "xl":9, "xxl":12) !default;
+
+@import "components/typography";
+

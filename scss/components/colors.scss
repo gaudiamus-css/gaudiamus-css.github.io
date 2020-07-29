@@ -1,0 +1,12 @@
+
+@mixin generate-color-classes{
+  @each $class, $property in $color-class-map{
+    @each $subclass, $value in $color-map{
+      .#{$class}-#{$subclass} { #{$property}: $value }
+      @each $state in $state-map{
+        .#{$state}\:#{$class}-#{$subclass}:#{$state} { #{$property}: $value }
+      }
+    }
+  }
+}
+@include generate-color-classes

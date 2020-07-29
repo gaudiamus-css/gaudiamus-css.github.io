@@ -1,0 +1,8 @@
+@each $name, $step in $fontSizes{
+  .font-#{$name} { font-size: unquote($step * $spacingStep + $spacingUnit) }
+}
+
+$decoration-map:("underline","none");
+@each $decoration in $decoration-map{
+  .text-decoration-#{$decoration}{ text-decoration: unquote($decoration)}
+}

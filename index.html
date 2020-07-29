@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" style="background: #212121">
+<head>
+    <meta charset="UTF-8">
+    <title>Gaudiamus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
+    <link rel="stylesheet" href="css/gaudiamus.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <style>
+        .container{
+            font-family: 'Lato', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div class="container text-white">
+    <h1 class="font-xxl">Gaudiamus</h1>
+    <p class="font-lg" style="line-height: 130%">
+        Yet another <strong>CSS-framework?</strong> Yes and no. <br> Highly inspired by
+        <a class="text-accent text-decoration-none" target="_blank" href="https://tailwindcss.com">tailwind css</a>,
+        I wanted something non-invasive, light and foremost: based on <strong>CSS GRID</strong> rather than flexbox.
+        The result is straight forward and easy to learn. Especially if you understand the advantage of utility-based classes.
+        <br>As such, <strong>Gaudiamus</strong> has no design or layout: it's a "build-your-own" solution.
+    </p>
+    <div class="grid-2-2-2-2-2-2" x-data="{links:['installation','grid', 'breakpoints', 'utilities', 'typography', 'colors']}">
+        <template x-for="link in links">
+            <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none place-x-stretch p-1 m-1 hover:raise-1-primary" x-bind:href="'#'+link" x-text="link.toUpperCase()"></a>
+        </template>
+    </div>
+
+
+    <h2 class="font-xl" id="installation">➩ Installation</h2>
+    <h2 class="font-xl" id="grid">➩ The grid system</h2>
+    <h2 class="font-xl" id="breakpoints">➩ Breakpoints</h2>
+    <h2 class="font-xl" id="utilities">➩ Utilities</h2>
+    <h2 class="font-xl" id="typography">➩ Typography</h2>
+    <h2 class="font-xl" id="colors">➩ Colors</h2>
+
+</div>
+
+</body>
+</html>

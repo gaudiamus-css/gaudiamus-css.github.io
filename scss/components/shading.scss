@@ -1,0 +1,32 @@
+/* border */
+@for $i from 0 to $depth{
+  .b-#{$i}{ border-width: #{$i}px; border-style:  solid;}
+  @each $state in $state-map{
+    .#{$state}\:b-#{$i}:#{$state} {
+      border-width: #{$i}px; border-style:  solid;
+    }
+  }
+}
+.b-rounded{
+  border-radius: unquote($spacingStep+$spacingUnit);
+}
+
+/* rise */
+
+
+@for $i from 1 to $depth{
+  @each $subclass, $value in $color-map{
+    .raise-#{$i}-#{$subclass} {
+      box-shadow: unquote($i*.5*$spacingStep+$spacingUnit) + ' ' unquote(($i*.75)*$spacingStep+$spacingUnit) + ' ' + $spread $value
+    }
+    @each $state in $state-map{
+      .#{$state}\:raise-#{$i}-#{$subclass}:#{$state} {
+        box-shadow: unquote($i*.5*$spacingStep+$spacingUnit) + ' ' unquote(($i*.75)*$spacingStep+$spacingUnit) + ' ' + $spread $value
+      }
+    }
+  }
+}
+
+/* states */
+
+
