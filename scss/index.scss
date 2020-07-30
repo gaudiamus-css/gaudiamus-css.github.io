@@ -1,6 +1,8 @@
 
 
 /* Grid */
+$columns: 12 !default;
+$items: 6 !default;
 $breakpoints: ("md":768px,"lg":1024px) !default;
 
 @import "components/grid";
