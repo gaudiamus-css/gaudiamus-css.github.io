@@ -22,33 +22,183 @@
         Yet another <strong>CSS-framework?</strong> Yes and no. <br> Highly inspired by
         <a class="text-accent text-decoration-none" target="_blank" href="https://tailwindcss.com">tailwind css</a>,
         I wanted something non-invasive, light and foremost: based on <strong>CSS GRID</strong> rather than flexbox.
+        <br>
+        <strong>Why?</strong> <br>
+        Because declaring responsive grid-behavior can finally happen where you intuitively want it: at the container level.
         The result is straight forward and easy to learn. Especially if you understand the advantage of utility-based classes.
-        <br>As such, <strong>Gaudiamus</strong> has no design or layout: it's a "build-your-own" solution.
+        <br>As such, <strong>Gaudiamus</strong> has no design or layout: it's a "build-your-own" solution. <br>
+        <span class="font-md">(so here you have my retro implementation)</span>
     </p>
-    <div class="grid-2-2-2-2-2-2" x-data="{links:['installation','grid', 'breakpoints', 'utilities', 'typography', 'colors']}">
+    <div class="grid-6-6 md:grid-4-4-4 lg:grid-2-2-2-2-2-2" x-data="{links:['installation','grid', 'utilities', 'compositions', 'typography', 'colors']}">
         <template x-for="link in links">
-            <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none place-x-stretch p-1 m-1 hover:raise-1-primary" x-bind:href="'#'+link" x-text="link.toUpperCase()"></a>
+            <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white" x-bind:href="'#'+link" x-text="link.toUpperCase()"></a>
         </template>
     </div>
 
 
     <h2 class="font-xl" id="installation">➩ Installation</h2>
-    <div class="grid-12 md:grid-6-6">
-        <p class="font-md m-r-1">
+    <h3 class="font-md text-accent">The power of SASS</h3>
+    <p class="font-md ">
+        <span class="font-lg">1.</span> The recommended way of using Gaudiamus is downloading it via the npm repository:
+    </p>
+    <div class="grid-5-2-5">
+        <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+            npm install gaudiamus-css
+        </div>
+        <div class="place-x-center">or</div>
+        <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+            yarn add gaudiamus-css
+        </div>
+    </div>
+    <p class="font-md ">
+        <span class="font-lg">2.</span> Next, include "gaudiamus-css/scss" into your own .sass or .scss file
+    </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+        <code>
+            /* style.scss */<br> <br>
+            // Every section of this page will introduce the corresponding variables. <br>
+            // here, we introduce setting the primary color <br><br>
+            $primaryColor: #c211e8; <br> <br>
+
+            // import gaudiamus after overwriting variables: <br><br>
+            @import "./node_modules/gaudiamus-css/scss" <br><br>
+            // and your <a href="#compositions" class="text-white">compositions</a> after importing gaudiamus: <br><br>
+            .button{ <br>
+            &nbsp;&nbsp;@extend b-rounded, b-1, b-accent, text-black, bg-accent, text-decoration-none, font-strong, place-x-stretch, p-1, m-1;
+            <br>
+            }
+        </code>
+    </div>
+    <h3 class="font-md text-accent m-t-5">via CDN</h3>
+    <div class="grid-12 md:grid-5-7 m-t-2">
+        <p class="font-md m-r-2">
             The "quick & dirty" tryout is via CDN. However, you will want to get the node-package to get the full benefit out of
             <strong>Gaudiamus</strong>
         </p>
-        <div class="bg-gray p-2 place-x-stretch">
+        <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
             &lt;link rel="stylesheet" <wbr>href="https://cdn.jsdelivr.net/npm/gaudiamus-css@1.0.0/css/gaudiamus.min.css">
         </div>
     </div>
-    <h3 class="font-md text-accent">The power of SASS</h3>
+
 
     <h2 class="font-xl" id="grid">➩ The grid system</h2>
-    <h2 class="font-xl" id="breakpoints">➩ Breakpoints</h2>
+    <h3 class="font-md text-accent m-t-3">Power to the parent</h3>
+    <p class="font-md">
+        The true power of gaudiamus is the grid-system. Instead of having to define behavior on the level of the children,
+        it allows easier control of behavior, layout and design. <br>
+        By default, we use the common 12-grid, so three equal columns would be written like this:
+    </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+        <code>
+            &lt;div class="grid-4-4-4"> <br>
+            &nbsp;&nbsp;&lt;div>one&lt;/div> <br>
+            &nbsp;&nbsp;&lt;div>two&lt;/div> <br>
+            &nbsp;&nbsp;&lt;div>three&lt;/div> <br>
+            &lt;/div> <br>
+        </code>
+    </div>
+    <div class="grid-4-4-4 m-t-3">
+        <span class="m-1 bg-gray b-rounded b-1 b-black p-1">one</span>
+        <span class="m-1 bg-gray b-rounded b-1 b-black p-1">two</span>
+        <span class="m-1 bg-gray b-rounded b-1 b-black p-1">three</span>
+    </div>
+    <h4>Any combination is possible:</h4>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+        <code>
+            &lt;div class="grid-7-5"> <br>
+            &nbsp;&nbsp;&lt;div> <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="grid-6-6"> <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div>one-1&lt;/div> <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div>one-2&lt;/div> <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div> <br>
+            &nbsp;&nbsp;&lt;/div> <br>
+            &nbsp;&nbsp;&lt;div>two&lt;/div> <br>
+            &lt;/div> <br>
+        </code>
+    </div>
+    <div class="grid-7-5 m-t-3">
+        <div class="m-1 bg-gray b-rounded b-1 b-black p-1">
+            <div class="grid-6-6">
+                <div class="m-1 bg-gray b-rounded b-1 b-black p-1">one-1</div>
+                <div class="m-1 bg-gray b-rounded b-1 b-black p-1">one-2</div>
+            </div>
+
+        </div>
+        <span class="m-1 bg-gray b-rounded b-1 b-black p-1">two</span>
+    </div>
+    <h3 class="font-md text-accent m-t-5">Placement</h3>
+    <p class="font-md">
+        You can place elements on the x and y-axis of the grid-area with ease:
+    </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+        <code>
+            &lt;div class="grid-3-3-3-3"> <br>
+            &nbsp;&nbsp;&lt;span class="place-x-center">1&lt;/span> <br>
+            &nbsp;&nbsp;&lt;span class="place-x-end">2&lt;/span> <br>
+            &nbsp;&nbsp;&lt;span class="place-y-start">3&lt;/span> <br>
+            &nbsp;&nbsp;&lt;span class="place-y-stretch">4&lt;/span> <br>
+            &lt;/div>
+        </code>
+    </div>
+    <div class="grid-3-3-3-3 m-t-3 bg-gray" style="height: 40px; grid-gap: 2px">
+        <div class="place-x-center bg-black b-rounded p-1">1</div>
+        <div class="place-x-end bg-black b-rounded p-1">2</div>
+        <div class="place-y-start bg-black b-rounded p-1">3</div>
+        <div class="place-y-stretch bg-black b-rounded p-1">4</div>
+    </div>
+    <h3 class="font-md text-accent m-t-5">Responsiveness</h3>
+    <p class="font-md">
+        What about breakpoints? We use a markup similar to
+        <a class="text-accent text-decoration-none" target="_blank" href="https://tailwindcss.com">tailwind css</a>
+        to tackle this. However, now the grid really starts to make the difference. finally you will have an overview of your breakpoints.
+        Start with mobile and go up: <br>
+        <span class="font-sm">(here is makes sense to play around with your window-size if you can)</span>
+    </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+        <code>
+            &lt;div class="grid-12 md:grid-6-6 lg:grid-3-3-3-3"> <br>
+            &nbsp;&nbsp;&lt;div>1&lt;/div> <br>
+            &nbsp;&nbsp;&lt;div>2&lt;/div> <br>
+            &nbsp;&nbsp;&lt;div>3&lt;/div> <br>
+            &nbsp;&nbsp;&lt;div>4&lt;/div> <br>
+            &lt;/div>
+        </code>
+    </div>
+    <div class="grid-12 md:grid-6-6 lg:grid-3-3-3-3" >
+        <div class="m-1 bg-gray b-rounded b-1 b-black p-1">1</div>
+        <div class="m-1 bg-gray b-rounded b-1 b-black p-1">2</div>
+        <div class="m-1 bg-gray b-rounded b-1 b-black p-1">3</div>
+        <div class="m-1 bg-gray b-rounded b-1 b-black p-1">4</div>
+    </div>
+    <p class="font-md">
+        A full row on mobile, 2 columns for medium sized screens and 4 columns for the desktop: easy and logical, isn't it?
+    </p>
+    <h3 class="font-md text-accent m-t-3">Variables: grid</h3>
+    <article class="font-md">
+        <div class="grid-2-10">
+            <p><strong class="text-primary">$columns</strong></p>
+            <p>Defaults to 12, but can set to whatever you want.</p>
+            <p><strong class="text-primary">$items</strong></p>
+            <p>Defines the maximum defined columns per row. Defaults to six and can't be set higher as $columns</p>
+        </div>
+
+    </article>
+    <h2 class="font-xl" id="compositions">➩ Compositions</h2>
+    <p class="font-md">
+        work in progress
+    </p>
     <h2 class="font-xl" id="utilities">➩ Utilities</h2>
+    <p class="font-md">
+        work in progress
+    </p>
     <h2 class="font-xl" id="typography">➩ Typography</h2>
+    <p class="font-md">
+        work in progress
+    </p>
     <h2 class="font-xl" id="colors">➩ Colors</h2>
+    <p class="font-md">
+        work in progress
+    </p>
 
 </div>
 
