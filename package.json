@@ -1,6 +1,6 @@
 {
   "name": "gaudiamus-css",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "css-grid based css-only framework for the creator & minimalist",
   "main": "scss/index.scss",
   "repository": "https://github.com/gaudiamus-css/gaudiamus-css.github.io",

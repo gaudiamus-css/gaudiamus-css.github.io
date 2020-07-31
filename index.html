@@ -27,7 +27,7 @@
         Because declaring responsive grid-behavior can finally happen where you intuitively want it: at the container level.
         The result is straight forward and easy to learn. Especially if you understand the advantage of utility-based classes.
         <br>As such, <strong>Gaudiamus</strong> has no design or layout: it's a "build-your-own" solution. <br>
-        <span class="font-md">(so here you have my retro implementation)</span>
+        <span class="font-md">( so here you have my retro implementation )</span>
     </p>
     <div class="grid-6-6 md:grid-4-4-4 lg:grid-2-2-2-2-2-2" x-data="{links:['installation','grid', 'utilities', 'compositions', 'typography', 'colors']}">
         <template x-for="link in links">
@@ -98,7 +98,7 @@
         </code>
     </div>
     <div class="grid-4-4-4 m-t-3">
-        <span class="m-1 bg-gray b-rounded b-1 b-black p-1">one</span>
+        <span class="m-1 bg-gray b-rounded b-1 b-black p-1 ">one</span>
         <span class="m-1 bg-gray b-rounded b-1 b-black p-1">two</span>
         <span class="m-1 bg-gray b-rounded b-1 b-black p-1">three</span>
     </div>
@@ -183,11 +183,28 @@
         </div>
 
     </article>
-    <h2 class="font-xl" id="compositions">➩ Compositions</h2>
-    <p class="font-md">
-        work in progress
-    </p>
+
     <h2 class="font-xl" id="utilities">➩ Utilities</h2>
+    <p class="font-md">
+        Gaudiamus works utility based. This approach is very declarative and you can intuitively read it once certain rules are understood.
+        <br>For example, knowing that "m-" stands for margin and "-t" stands for "top", the class "m-t-2" can be read as "margin-top-2"
+        (2 being the multiplier of the base-unit which defaults to .25rem but can be set to whatever you want.) <br><br>
+        One can easily guess what ".m-b-4" stands for: margin-bottom: 1 rem
+    </p>
+    <p class="font-md ">
+        Due to the nature of CSS, all dashed-utilities can be used to directly compose (see <a class="text-white" href="#compositions">compositions</a>), while colon-utilities need their own rules.
+    </p>
+    <p class="font-md ">
+        <strong>Example dashed-utility:</strong> <code>raise-1-white</code> (creates a white drop shadow (level 1))
+    </p>
+    <p class="font-md ">
+        <strong>Example colon-utility:</strong> <code>hover:raise-1-white</code> (creates a white drop shadow (level 1) when element is hovered)
+    </p>
+    <p class="font-md ">
+        Many utility classes can be named via variables. For a list of default classes, see
+        <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white" href="classes.html">classes</a>.
+    </p>
+    <h2 class="font-xl" id="compositions">➩ Compositions</h2>
     <p class="font-md">
         work in progress
     </p>
