@@ -1,5 +1,6 @@
 # Gaudiamus CSS
 
+Check out the 
 [guide](https://gaudiamus-css.github.io)
+for information on how to use Gaudiamus.
 
-Currently docs are missing, will ad as soon as I get to it
