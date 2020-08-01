@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <title>Gaudiamus</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
     <link rel="stylesheet" href="css/gaudiamus.min.css">
-<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gaudiamus-css@1.0.0/css/gaudiamus.min.css">-->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <style>
@@ -17,6 +20,9 @@
 </head>
 <body>
 <div class="container text-white">
+    <div class="grid-12">
+        <img src="gaudiamus-logo.png" alt="logo" class="place-x-center" style="max-width: 60%">
+    </div>
     <h1 class="font-xxl">Gaudiamus</h1>
     <p class="font-lg" style="line-height: 130%">
         Yet another <strong>CSS-framework?</strong> Yes and no. <br> Highly inspired by
@@ -37,6 +43,13 @@
 
 
     <h2 class="font-xl" id="installation">➩ Installation</h2>
+    <h3 class="font-md text-accent">Quick start</h3>
+    <p class="font-md ">
+        Feel free to have a look at our quick start template: <a target="_blank" href="https://github.com/gaudiamus-css/gaudiamus-starter" class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white" >
+        gaudiamus-starter
+    </a>
+    </p>
+
     <h3 class="font-md text-accent">The power of SASS</h3>
     <p class="font-md ">
         <span class="font-lg">1.</span> The recommended way of using Gaudiamus is downloading it via the npm repository:
@@ -206,11 +219,59 @@
     </p>
     <h2 class="font-xl" id="compositions">➩ Compositions</h2>
     <p class="font-md">
-        work in progress
+        Writing utility based can become quite verbose. While it does make sense to use them while developing your designs,
+        repetitive classes can then be avoided by fixating them into compositions:
     </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+        <code>
+            /* composition.scss */ <br><br>
+            h1 { @extend .font-xxl, .text-primary }<br>
+            <br>
+            .card {<br>
+            &nbsp;&nbsp;@extend .b-primary, .b-rounded, .raise-1-accent, .p-2, .m-t-3, .m-b-3;<br>
+            }<br><br>
+            /* some.html */<br><br>
+            &lt;h1>Headline&lt;/h1><br>
+            &lt;section class="card"><br>
+            &nbsp;&nbsp;My content<br>
+            &lt;/section>
+        </code>
+    </div>
+    <p class="font-md">
+        You can even create your own classless system with that approach, which comes in very useful when using one of the popular JS frameworks
+        using custom components:
+    </p>
+
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 ">
+        <code>
+            /* composition.scss */ <br><br>
+            my-input {<br>
+            &nbsp;&nbsp;@extend .bg-transparent, .p-l-2, .p-r-2, .m-1, .text-gray, .raise-1-gray, .b-rounded;<br>
+            }<br><br>
+            my-input:focus {<br>
+            &nbsp;&nbsp;@extend .raise-1-accent;<br>
+            }<br><br>
+            /* Some.jsx */<br><br>
+            &lt;my-input onChange={ev => setInput(ev.target.value)} /><br>
+
+        </code>
+    </div>
     <h2 class="font-xl" id="typography">➩ Typography</h2>
     <p class="font-md">
-        work in progress
+        Gaudiamus comes with very minimal attention to typography.
+        Include whatever fonts you like and set them up to your desire.
+    </p>
+    <h3 class="font-md text-accent m-t-3">Variables: typography</h3>
+    <article class="font-md">
+        <div class="grid-2-10">
+            <p><strong class="text-primary">$fontSizes (map)</strong></p>
+            <p>Defaults to: ("sm":3, "md":5, "lg":7, "xl":9, "xxl":12)</p>
+        </div>
+
+    </article>
+    <p class="font-md">
+        For all available font & text-utilities see <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white" href="classes.html">classes</a>.
+
     </p>
     <h2 class="font-xl" id="colors">➩ Colors</h2>
     <p class="font-md">
