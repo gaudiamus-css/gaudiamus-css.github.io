@@ -1,6 +1,6 @@
 
 .container{
-  max-width: 96vw;
+  max-width: calc(100% - 20px);
   margin: $baseSpacing auto;
 }
 .w-100{
@@ -17,27 +17,55 @@
 
 
 
-/* margin & padding */
+/* utility generator */
 
-$shorthand-map: ("t":"top","b":"bottom","r":"right","l":"left");
-$property-map: ("m":"margin","p":"padding");
-@mixin spacing-classes($className,$property){
+
+@mixin map-to-class($className,$property){
   @for $i from 1 through $numSpacingUnits{
     $class: unquote($className+'-'+$i);
-    $computedProperty: $property;
-    .#{$class} { #{$computedProperty}: unquote(($i * $spacingStep)+$spacingUnit);}
+    $calculatedProperty:'';
+    .#{$class} {
+      @each $j, $prop in $property{
+        @if($calculatedProperty == ''){
+          $calculatedProperty:$prop;
+          @if($prop == null){
+            #{$j}: unquote(($i * $spacingStep)+$spacingUnit);
+          }
+        } @else{
+          $p: #{$calculatedProperty}-#{$prop};
+          #{$p}: unquote(($i * $spacingStep)+$spacingUnit);
+        }
+
+      }
+
+    }
   }
 }
+
 @each $property-class, $property in $property-map {
-  @include spacing-classes($property-class,$property);
+  @include map-to-class($property-class,$property);
+  @each $breakpoint, $value in $breakpoints {
+    @media (min-width: $value) {
+      @include map-to-class('#{$breakpoint}\\:#{$property-class}',$property);
+    }
+  }
   @each $property-modifier, $property-addon in $shorthand-map{
     $class: $property-class + '-' + $property-modifier;
-    @include spacing-classes($class,unquote($property+'-'+$property-addon));
+    $p-map:(0:$property);
+    $p-end:();
+
+    @if(type_of($property-addon) == 'map'){
+      $p-end: map_merge($p-map,$property-addon);
+    } @else {
+      $p-end: map_merge($p-map,(1:$property-addon));
+    }
+
+
+    @include map-to-class($class,$p-end);
     @each $breakpoint, $value in $breakpoints {
       @media (min-width: $value) {
-        @include spacing-classes('#{$breakpoint}\\:#{$class}',unquote($property+'-'+$property-addon));
+        @include map-to-class('#{$breakpoint}\\:#{$class}',$p-end);
       }
     }
   }
-
 }
