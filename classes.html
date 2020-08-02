@@ -14,20 +14,97 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <style>
-        .container{
+        .container {
             font-family: 'Lato', sans-serif;
+        }
+        li{
+            list-style: circle;
         }
     </style>
 </head>
 <body>
-<div class="container text-white">
-    <h1 class="font-xxl">Gaudiamus - classes</h1>
-    <p class="font-lg" style="line-height: 130%">
-        <strong>Incomplete</strong> list of out-of-the-box classes. <br>
-        Check out <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white" href="index.html">the main page</a> for more information about Gaudiamus.
-    </p>
-    <h2>Class list</h2>
+<div class="grid-12 md:grid-2-10" x-data="component()">
+    <article class="b-r-1 b-accent p-2 m-r-3">
+        <div class="w-100">
+            <img src="gaudiamus-logo.png" alt="logo" style="max-width: 80%">
+        </div>
+        <div class="position-fixed">
+            <template x-for="topic in data">
+                <p style="text-align: center">
+                    <a class="text-decoration-none text-accent font-lg hover:b-b-2 " x-text="topic.topic" x-bind:href="'#'+topic.topic"></a>
+                </p>
+            </template>
+        </div>
+
+    </article>
+    <div class="container text-white">
+        <h1 class="font-xxl">Gaudiamus - classes</h1>
+        <p class="font-lg" style="line-height: 130%">
+            <strong>Incoplete</strong> list of out-of-the-box classes. Since you can edit basically anything about these
+            values, familiarize yourself with the concepts of Gaudiamus.<br>
+            Check out <a
+                class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-x-1 m-1 hover:raise-1-white"
+                href="index.html">the main page</a> for more information about Gaudiamus.
+        </p>
+        <h2>Class list</h2>
+        <template x-for="topic in data">
+            <div>
+                <h2 x-bind:id="topic.topic" class="text-primary font-lg" x-text="topic.topic"></h2>
+                <ul>
+                    <template x-for="item in topic.list">
+                        <li class="font-md " x-text="'.'+item"></li>
+                    </template>
+                </ul>
+            </div>
+
+
+        </template>
+    </div>
 </div>
+<script>
+    function component() {
+        return {
+            data: [
+                {
+                    topic: "Grid", list: [
+                        "grid-1-1-1-1-1-1", "...", "grid-2-5-1-4", "...", "grid-12","...",
+                        "md:grid-1-1-1-1-1-1", "...", "md:grid-2-5-1-4", "...", "md:grid-12","...",
+                        "lg:grid-1-1-1-1-1-1", "...", "lg:grid-2-5-1-4", "...", "lg:grid-12",
+                    ]
+                },{
+                topic: "Spacing", list:[
+                    "container",
+                    "m-t-1", "...", "m-t-5", "...",
+                    "m-r-1", "...", "m-r-5", "...",
+                    "m-b-1", "...", "m-b-5", "...",
+                    "m-l-1", "...", "m-l-5", "...",
+                    "m-x-1", "...", "m-x-5", "...",
+                    "m-y-1", "...", "m-y-5", "...",
+                    "p-t-1", "...", "p-t-5", "...",
+                    "p-r-1", "...", "p-r-5", "...",
+                    "p-b-1", "...", "p-b-5", "...",
+                    "p-l-1", "...", "p-l-5", "...",
+                    "p-x-1", "...", "p-x-5", "...",
+                    "p-y-1", "...", "p-y-5", "...",
+                    "md:m-l-1", "...", "md:m-l-5", "...",
+                    "lg:m-l-1", "...", "lg:m-l-5", "...",
+                    "lg:m-l-1", "...", "lg:m-l-5", "...",
+                    ]
+                },
+                {
+                    topic: "Shading", list:[
+                        "b-1", "...", "b-5",  "...",
+                        "b-t-1", "...", "b-t-5", "...",
+                        "b-r-1", "...", "b-r-5", "...",
+                        "b-b-1", "...", "b-b-5", "...",
+                        "b-l-1", "...", "b-l-5", "...",
+                        
+                    ]
+                }
+            ]
+        }
+    }
+</script>
 
 </body>
 </html>

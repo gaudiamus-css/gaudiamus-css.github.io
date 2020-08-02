@@ -1,15 +1,18 @@
 /* Grid */
 $columns: 12 !default;
 $items: 6 !default;
-$breakpoints: ("md":768px,"lg":1024px) !default;
+$breakpoint-map: ("md":768px,"lg":1024px) !default;
 
 @import "components/grid";
 
-/* Spacing */
+/* Spacing & utility generator */
 $baseSpacing: 20px !default;
 $spacingUnit: 'rem' !default;
 $spacingStep: .25 !default;
 $numSpacingUnits: 5 !default;
+
+$shorthand-map: ("t":"top","b":"bottom","r":"right","l":"left","x":(1:"left",2:"right"),"y":(1:"top",2:"bottom"));
+$property-map: ("m":"margin","p":"padding");
 
 @import "components/spacing";
 
@@ -47,6 +50,6 @@ $spread: 4px !default;
 
 @import "components/form";
 
-$fontSizes:("sm":3, "md":5, "lg":7, "xl":9, "xxl":12) !default;
+$fontSize-map:("sm":3, "default":4, "md":5, "lg":7, "xl":9, "xxl":12) !default;
 
 @import "components/typography";

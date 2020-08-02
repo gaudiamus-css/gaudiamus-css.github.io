@@ -11,41 +11,70 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
     <link rel="stylesheet" href="css/gaudiamus.min.css">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <style>
-        .container{
+        .container {
             font-family: 'Lato', sans-serif;
         }
+
+        p {
+            line-height: 130%;
+        }
+
+        .to-top{
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
-<div class="container text-white">
+<button class="b-rounded b-transparent hover:raise-1-white bg-primary text-white to-top" id="top-btn">up</button>
+<div class="container text-white" x-data="component()">
     <div class="grid-12">
         <img src="gaudiamus-logo.png" alt="logo" class="place-x-center" style="max-width: 60%">
     </div>
-    <h1 class="font-xxl">Gaudiamus</h1>
+    <h1 class="font-xxl" id="title">Gaudiamus</h1>
     <p class="font-lg" style="line-height: 130%">
-        Yet another <strong>CSS-framework?</strong> Yes and no. <br> Highly inspired by
+        Yet another <strong>CSS-framework?</strong> <br>Not really: Gaudiamus is a framework builder. <br> Highly
+        inspired by
         <a class="text-accent text-decoration-none" target="_blank" href="https://tailwindcss.com">tailwind css</a>,
         I wanted something non-invasive, light and foremost: based on <strong>CSS GRID</strong> rather than flexbox.
         <br>
         <strong>Why?</strong> <br>
-        Because declaring responsive grid-behavior can finally happen where you intuitively want it: at the container level.
-        The result is straight forward and easy to learn. Especially if you understand the advantage of utility-based classes.
-        <br>As such, <strong>Gaudiamus</strong> has no design or layout: it's a "build-your-own" solution. <br>
-        <span class="font-md">( so here you have my retro implementation )</span>
+        Because declaring responsive grid-behavior can finally happen where you intuitively want it: at the container
+        level.
+
     </p>
-    <div class="grid-6-6 md:grid-4-4-4 lg:grid-2-2-2-2-2-2" x-data="{links:['installation','grid', 'utilities', 'compositions', 'typography', 'colors']}">
+    <div class="grid-6-6 md:grid-4-4-4 lg:grid-2-2-2-2-2-2"
+         x-data="{links:['installation','grid', 'utilities', 'compositions', 'typography', 'colors']}">
         <template x-for="link in links">
-            <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white" x-bind:href="'#'+link" x-text="link.toUpperCase()"></a>
+            <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white"
+               x-bind:href="'#'+link" x-text="link.toUpperCase()"></a>
         </template>
     </div>
+    <p class="font-default">
+        The result is straight forward and easy to learn. Especially if you understand the advantage of utility-based
+        classes.
+        <br>As such, <strong>Gaudiamus</strong> has no design or layout: it's a "build-your-own" solution. <br>
+        ( so here you have my retro implementation )
+    </p>
 
 
     <h2 class="font-xl" id="installation">➩ Installation</h2>
     <h3 class="font-md text-accent">Quick start</h3>
     <p class="font-md ">
-        Feel free to have a look at our quick start template: <a target="_blank" href="https://github.com/gaudiamus-css/gaudiamus-starter" class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white" >
+        Feel free to have a look at our quick start template: <a target="_blank"
+                                                                 href="https://github.com/gaudiamus-css/gaudiamus-starter"
+                                                                 class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-x-1 m-1 hover:raise-1-white">
         gaudiamus-starter
     </a>
     </p>
@@ -77,7 +106,8 @@
             @import "./node_modules/gaudiamus-css/scss" <br><br>
             // and your <a href="#compositions" class="text-white">compositions</a> after importing gaudiamus: <br><br>
             .button{ <br>
-            &nbsp;&nbsp;@extend b-rounded, b-1, b-accent, text-black, bg-accent, text-decoration-none, font-strong, place-x-stretch, p-1, m-1;
+            &nbsp;&nbsp;@extend b-rounded, b-1, b-accent, text-black, bg-accent, text-decoration-none, font-strong,
+            place-x-stretch, p-1, m-1;
             <br>
             }
         </code>
@@ -85,11 +115,14 @@
     <h3 class="font-md text-accent m-t-5">via CDN</h3>
     <div class="grid-12 md:grid-5-7 m-t-2">
         <p class="font-md m-r-2">
-            The "quick & dirty" tryout is via CDN. However, you will want to get the node-package to get the full benefit out of
+            The "quick & dirty" tryout is via CDN. However, you will want to get the node-package to get the full
+            benefit out of
             <strong>Gaudiamus</strong>
         </p>
-        <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
-            &lt;link rel="stylesheet" <wbr>href="https://cdn.jsdelivr.net/npm/gaudiamus-css@1.0.0/css/gaudiamus.min.css">
+        <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 font-md">
+            &lt;link rel="stylesheet"
+            <wbr>
+            href="https://cdn.jsdelivr.net/npm/gaudiamus-css@1.1.0/css/gaudiamus.min.css">
         </div>
     </div>
 
@@ -97,7 +130,8 @@
     <h2 class="font-xl" id="grid">➩ The grid system</h2>
     <h3 class="font-md text-accent m-t-3">Power to the parent</h3>
     <p class="font-md">
-        The true power of gaudiamus is the grid-system. Instead of having to define behavior on the level of the children,
+        The true power of gaudiamus is the grid-system. Instead of having to define behavior on the level of the
+        children,
         it allows easier control of behavior, layout and design. <br>
         By default, we use the common 12-grid, so three equal columns would be written like this:
     </p>
@@ -163,7 +197,8 @@
     <p class="font-md">
         What about breakpoints? We use a markup similar to
         <a class="text-accent text-decoration-none" target="_blank" href="https://tailwindcss.com">tailwind css</a>
-        to tackle this. However, now the grid really starts to make the difference. finally you will have an overview of your breakpoints.
+        to tackle this. However, now the grid really starts to make the difference. finally you will have an overview of
+        your breakpoints.
         Start with mobile and go up: <br>
         <span class="font-sm">(here is makes sense to play around with your window-size if you can)</span>
     </p>
@@ -177,49 +212,75 @@
             &lt;/div>
         </code>
     </div>
-    <div class="grid-12 md:grid-6-6 lg:grid-3-3-3-3" >
+    <div class="grid-12 md:grid-6-6 lg:grid-3-3-3-3">
         <div class="m-1 bg-gray b-rounded b-1 b-black p-1">1</div>
         <div class="m-1 bg-gray b-rounded b-1 b-black p-1">2</div>
         <div class="m-1 bg-gray b-rounded b-1 b-black p-1">3</div>
         <div class="m-1 bg-gray b-rounded b-1 b-black p-1">4</div>
     </div>
     <p class="font-md">
-        A full row on mobile, 2 columns for medium sized screens and 4 columns for the desktop: easy and logical, isn't it?
+        A full row on mobile, 2 columns for medium sized screens and 4 columns for the desktop: easy and logical, isn't
+        it?
     </p>
     <h3 class="font-md text-accent m-t-3">Variables: grid</h3>
     <article class="font-md">
-        <div class="grid-2-10">
-            <p><strong class="text-primary">$columns</strong></p>
-            <p>Defaults to 12, but can set to whatever you want.</p>
-            <p><strong class="text-primary">$items</strong></p>
-            <p>Defines the maximum defined columns per row. Defaults to six and can't be set higher as $columns</p>
+        <div class="grid-12 md:grid-5-7">
+            <p>Variable</p>
+            <p>Default value</p>
         </div>
+        <template x-for="grid in data.grid">
+            <div class="grid-12 md:grid-5-7">
+                <p><strong class="text-primary" x-text="grid.name">$primaryColor</strong></p>
+                <p><span x-text="grid.value"></span></p>
+            </div>
 
+        </template>
     </article>
+
 
     <h2 class="font-xl" id="utilities">➩ Utilities</h2>
     <p class="font-md">
-        Gaudiamus works utility based. This approach is very declarative and you can intuitively read it once certain rules are understood.
-        <br>For example, knowing that "m-" stands for margin and "-t" stands for "top", the class "m-t-2" can be read as "margin-top-2"
+        Gaudiamus works utility based. This approach is very declarative and you can intuitively read it once certain
+        rules are understood.
+        <br>For example, knowing that "m-" stands for margin and "-t" stands for "top", the class "m-t-2" can be read as
+        "margin-top-2"
         (2 being the multiplier of the base-unit which defaults to .25rem but can be set to whatever you want.) <br><br>
         One can easily guess what ".m-b-4" stands for: margin-bottom: 1 rem
     </p>
     <p class="font-md ">
-        Due to the nature of CSS, all dashed-utilities can be used to directly compose (see <a class="text-white" href="#compositions">compositions</a>), while colon-utilities need their own rules.
+        Due to the nature of CSS, all dashed-utilities can be used to directly compose (see <a class="text-white"
+                                                                                               href="#compositions">compositions</a>),
+        while colon-utilities need their own rules.
     </p>
     <p class="font-md ">
         <strong>Example dashed-utility:</strong> <code>raise-1-white</code> (creates a white drop shadow (level 1))
     </p>
     <p class="font-md ">
-        <strong>Example colon-utility:</strong> <code>hover:raise-1-white</code> (creates a white drop shadow (level 1) when element is hovered)
+        <strong>Example colon-utility:</strong> <code>hover:raise-1-white</code> (creates a white drop shadow (level 1)
+        when element is hovered)
     </p>
     <p class="font-md ">
         Many utility classes can be named via variables. For a list of default classes, see
-        <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white" href="classes.html">classes</a>.
+        <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-x-1 m-1 hover:raise-1-white"
+           href="classes.html">classes</a>.
     </p>
+    <article class="font-md">
+        <div class="grid-12 md:grid-5-7">
+            <p>Variable</p>
+            <p>Default value</p>
+        </div>
+        <template x-for="utility in data.utilities">
+            <div class="grid-12 md:grid-5-7">
+                <p><strong class="text-primary" x-text="utility.name">$primaryColor</strong></p>
+                <p><span x-text="utility.value"></span></p>
+            </div>
+
+        </template>
+    </article>
     <h2 class="font-xl" id="compositions">➩ Compositions</h2>
     <p class="font-md">
-        Writing utility based can become quite verbose. While it does make sense to use them while developing your designs,
+        Writing utility based can become quite verbose. While it does make sense to use them while developing your
+        designs,
         repetitive classes can then be avoided by fixating them into compositions:
     </p>
     <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
@@ -238,7 +299,8 @@
         </code>
     </div>
     <p class="font-md">
-        You can even create your own classless system with that approach, which comes in very useful when using one of the popular JS frameworks
+        You can even create your own classless system with that approach, which comes in very useful when using one of
+        the popular JS frameworks
         using custom components:
     </p>
 
@@ -263,22 +325,147 @@
     </p>
     <h3 class="font-md text-accent m-t-3">Variables: typography</h3>
     <article class="font-md">
-        <div class="grid-2-10">
-            <p><strong class="text-primary">$fontSizes (map)</strong></p>
-            <p>Defaults to: ("sm":3, "md":5, "lg":7, "xl":9, "xxl":12)</p>
+        <div class="grid-3-9">
+            <p><strong>Variable</strong></p>
+            <p><strong>Default value</strong></p>
+            <p><strong class="text-primary">$fontSize-map</strong></p>
+            <p>("sm":3, "md":5, "lg":7, "xl":9, "xxl":12)</p>
         </div>
 
     </article>
     <p class="font-md">
-        For all available font & text-utilities see <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white" href="classes.html">classes</a>.
+        For all available font & text-utilities see <a
+            class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-x-1 m-1 hover:raise-1-white"
+            href="classes.html">classes</a>.
 
     </p>
     <h2 class="font-xl" id="colors">➩ Colors</h2>
     <p class="font-md">
-        work in progress
+        Setting up colors is likely one of the first customizations you are going to fiddle around with.
+        Setting up your theme starts with editing the values and/or names of colors:
     </p>
+    <article class="font-md">
+        <div class="grid-12 md:grid-5-7">
+            <p><strong>Variable</strong></p>
+            <p><strong>Default value</strong></p>
+        </div>
+        <template x-for="color in data.colors">
+            <div class="grid-12 md:grid-5-7">
+                <p><strong class="text-primary" x-text="color.name">$primaryColor</strong></p>
+                <p><span class="p-l-5" x-bind:style="'background:'+ color.color"></span>&nbsp;<span
+                        x-text="color.color"></span></p>
+            </div>
 
+        </template>
+
+    </article>
+    <p class="font-md">
+        Next, let's decide what utility classes to generate and how to name them.
+        We use three SASS-maps to achieve that:
+    </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 ">
+        <code>
+            $color-class-map:("bg":"background-color","transparent":transparent); <br><br>
+            $color-map:("primary":$primaryColor) <br><br>
+            $state-map:("hover")
+        </code>
+    </div>
+    <p class="font-md">
+        The above example would generate utility-classes of the following pattern: <br>
+        [color-class-map-key]-[color-map-key]{ [color-class-map-value]: [color-map-value] } <br>
+        for each registered state (pseudo-class): <br>
+        e.g. [color-class-map-key]-[color-map-key]:[state-map-value]{...}
+    </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 ">
+        <code>
+            // resulting css <br>
+            .bg-primary{ background-color: #258cc7}; <br>
+            .bg-transparent{ background-color: transparent}; <br>
+            .hover\:bg-transparent:hover{ background-color: transparent}; <br>
+            .hover\:bg-primary:hover{ background-color: #258cc7}; <br><br>
+            // in html: <br>
+            &lt;p class="bg-primary hover:bg-transparent">hide background on hover&lt;/p>
+        </code>
+    </div>
+    <p class="font-md">
+        Needless to say, the default maps do a little more than that. Here are the defaults:
+    </p>
+    <article class="font-md">
+        <div class="grid-12 md:grid-5-7 ">
+            <p><strong>Variable</strong></p>
+            <p><strong>Default value</strong></p>
+
+            <p><strong class="text-primary">$color-class-map</strong></p>
+            <p>("bg":"background-color","text":"color","b":"border-color")</p>
+
+            <p><strong class="text-primary">$color-map</strong></p>
+            <p>(
+                "primary":$primaryColor,
+                "accent":$accentColor,
+                "success":$successColor,
+                "warning":$warningColor,
+                "transparent":transparent,
+                "gray": $gray,
+                "white": $white,
+                "black": $black
+                )</p>
+
+            <p><strong class="text-primary">$state-map</strong></p>
+            <p>("focus","hover","active")</p>
+
+        </div>
+
+    </article>
+    <div class="m-t-5 m-b-5 text-transparent">spacer</div>
 </div>
+<script>
+    window.onscroll = function() {scrollFunction()};
+    const topBtn = document.getElementById('top-btn');
+    topBtn.addEventListener('click', ()=> {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    })
+    function scrollFunction() {
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            topBtn.style.display = "block";
+        } else {
+            topBtn.style.display = "none";
+        }
+    }
 
+
+    function component() {
+        return {
+            data: {
+                colors: [
+                    {name: '$primaryColor', color: '#258cc7'},
+                    {name: '$accentColor', color: '#21d593'},
+                    {name: '$successColor', color: '#1f921f'},
+                    {name: '$warningColor', color: '#c92d2d'},
+                    {name: '$gray', color: 'rgba(0,0,0,.2)'},
+                    {name: '$white', color: '#e8e5e5'},
+                    {name: '$black', color: '#101010'},
+                ],
+                utilities: [
+                    {name: '$baseSpacing', value: '20px'},
+                    {name: '$spacingUnit', value: 'rem'},
+                    {name: '$spacingStep', value: '.25'},
+                    {name: '$numSpacingUnits', value: '5'},
+                    {
+                        name: '$shorthand-map',
+                        value: '("t":"top","b":"bottom","r":"right","l":"left","x":(1:"left",2:"right"),"y":(1:"top",2:"bottom"))'
+                    },
+                    {name: '$property-map', value: '("m":"margin","p":"padding")'},
+                ],
+                grid: [
+                    {name: '$columns', value:'12'},
+                    {name: '$items', value:'6'},
+                    {name: '$breakpoint-map', value:'("md":768px,"lg":1024px)'},
+                ]
+            }
+        }
+
+    }
+</script>
 </body>
 </html>
