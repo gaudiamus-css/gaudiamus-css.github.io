@@ -1,6 +1,16 @@
 /* border */
+$sides:("t":"top","r":"right","b":"bottom", "l":"left");
+
 @for $i from 0 to $depth{
   .b-#{$i}{ border-width: #{$i}px; border-style:  solid;}
+  @each $name, $side in $sides{
+    .b-#{$name}-#{$i}{ border-#{$side}-width: #{$i}px; border-#{$side}-style:  solid;}
+    @each $state in $state-map{
+      .#{$state}\:b-#{$name}-#{$i}:#{$state} {
+        border-#{$side}-width: #{$i}px; border-#{$side}-style:  solid;
+      }
+    }
+  }
   @each $state in $state-map{
     .#{$state}\:b-#{$i}:#{$state} {
       border-width: #{$i}px; border-style:  solid;

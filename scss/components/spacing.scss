@@ -6,7 +6,7 @@
 .w-100{
   width: 100%;
 }
-@each $breakpoint, $value in $breakpoints {
+@each $breakpoint, $value in $breakpoint-map {
   @media (min-width: $value) {
     .container{
       max-width: $value * .95;
@@ -15,6 +15,10 @@
   }
 }
 
+$position-map:("relative","absolute","fixed");
+@each $position in $position-map{
+  .position-#{$position}{position: unquote($position)}
+}
 
 
 /* utility generator */
@@ -44,7 +48,7 @@
 
 @each $property-class, $property in $property-map {
   @include map-to-class($property-class,$property);
-  @each $breakpoint, $value in $breakpoints {
+  @each $breakpoint, $value in $breakpoint-map {
     @media (min-width: $value) {
       @include map-to-class('#{$breakpoint}\\:#{$property-class}',$property);
     }
@@ -62,7 +66,7 @@
 
 
     @include map-to-class($class,$p-end);
-    @each $breakpoint, $value in $breakpoints {
+    @each $breakpoint, $value in $breakpoint-map {
       @media (min-width: $value) {
         @include map-to-class('#{$breakpoint}\\:#{$class}',$p-end);
       }

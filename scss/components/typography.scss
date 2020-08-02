@@ -1,4 +1,4 @@
-@each $name, $step in $fontSizes{
+@each $name, $step in $fontSize-map{
   .font-#{$name} { font-size: unquote($step * $spacingStep + $spacingUnit) }
 }
 
