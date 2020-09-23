@@ -2,7 +2,7 @@
 .#{$grid-container-prefix}{
   display: grid;
 }
-[class^='grid-']{
+[class^='#{$grid-container-prefix}-']{
   display: grid;
   grid-template-rows: auto;
 }
