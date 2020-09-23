@@ -3,8 +3,28 @@
   max-width: calc(100% - 20px);
   margin: $baseSpacing auto;
 }
-.w-100{
-  width: 100%;
+
+
+@each $hw, $unit in $height-width-unit-map{
+  @each $value in $height-width-value-map{
+    .w-#{$value}#{$hw}{
+      width: unquote($value+$unit);
+    }
+    .h-#{$value}#{$hw}{
+      height: unquote($value+$unit);
+    }
+    @each $breakpoint, $value in $breakpoint-map {
+      @media (min-width: $value) {
+        .#{$breakpoint}\:w-#{$value}#{$hw}{
+          width: unquote($value+$unit);
+        }
+        .#{$breakpoint}\:h-#{$value}#{$hw}{
+          height: unquote($value+$unit);
+        }
+      }
+    }
+  }
+
 }
 @each $breakpoint, $value in $breakpoint-map {
   @media (min-width: $value) {
@@ -15,9 +35,13 @@
   }
 }
 
-$position-map:("relative","absolute","fixed");
 @each $position in $position-map{
   .position-#{$position}{position: unquote($position)}
+  @each $breakpoint, $value in $breakpoint-map {
+    @media (min-width: $value) {
+      .#{$breakpoint}\:position-#{$position}{position: unquote($position)}
+    }
+  }
 }
 
 
@@ -63,8 +87,6 @@ $position-map:("relative","absolute","fixed");
     } @else {
       $p-end: map_merge($p-map,(1:$property-addon));
     }
-
-
     @include map-to-class($class,$p-end);
     @each $breakpoint, $value in $breakpoint-map {
       @media (min-width: $value) {

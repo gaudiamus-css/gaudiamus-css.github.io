@@ -2,12 +2,11 @@
   .font-#{$name} { font-size: unquote($step * $spacingStep + $spacingUnit) }
 }
 
-$decoration-map:("underline","none");
 @each $decoration in $decoration-map{
   .text-decoration-#{$decoration}{ text-decoration: unquote($decoration)}
 }
 
-$weight-map:("light":200,"strong":700);
+
 @each $name, $value in $weight-map{
   .font-#{$name}{ font-weight: $value}
 }

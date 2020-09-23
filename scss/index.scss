@@ -1,4 +1,5 @@
 /* Grid */
+$grid-container-prefix: 'grid';
 $columns: 12 !default;
 $items: 6 !default;
 $breakpoint-map: ("md":768px,"lg":1024px) !default;
@@ -11,8 +12,12 @@ $spacingUnit: 'rem' !default;
 $spacingStep: .25 !default;
 $numSpacingUnits: 5 !default;
 
+
 $shorthand-map: ("t":"top","b":"bottom","r":"right","l":"left","x":(1:"left",2:"right"),"y":(1:"top",2:"bottom"));
 $property-map: ("m":"margin","p":"padding");
+$position-map:("relative","absolute","fixed");
+$height-width-unit-map:("p":"%");
+$height-width-value-map:("25", "50", "75", "100");
 
 @import "components/spacing";
 
@@ -41,7 +46,7 @@ $state-map:("focus","hover","active");
 
 @import "components/colors";
 
-/* Shading & borders*/
+/* Shading & borders */
 
 $depth: 3 !default;
 $spread: 4px !default;
@@ -50,6 +55,10 @@ $spread: 4px !default;
 
 @import "components/form";
 
+/* Typography */
+
 $fontSize-map:("sm":3, "default":4, "md":5, "lg":7, "xl":9, "xxl":12) !default;
+$decoration-map:("underline","none");
+$weight-map:("light":200,"strong":700);
 
 @import "components/typography";

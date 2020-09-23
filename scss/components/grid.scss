@@ -1,7 +1,5 @@
 
-
-
-.grid{
+.#{$grid-container-prefix}{
   display: grid;
 }
 [class^='grid-']{
@@ -34,11 +32,11 @@ $grid-item-properties:("start","end","center","stretch");
     }
   }
 }
-@include deep-grid(0,'.grid','',1);
+@include deep-grid(0,'.#{$grid-container-prefix}','',1);
 
 @each $breakpoint, $value in $breakpoint-map {
   @media (min-width: $value) {
-    @include deep-grid(0,'.#{$breakpoint}\\:grid','',1);
+    @include deep-grid(0,'.#{$breakpoint}\\:#{$grid-container-prefix}','',1);
   }
 }
 
