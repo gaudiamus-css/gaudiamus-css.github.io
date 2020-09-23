@@ -28,7 +28,7 @@
         <div class="w-100">
             <img src="gaudiamus-logo.png" alt="logo" style="max-width: 80%">
         </div>
-        <div class="position-fixed">
+        <div class="md:position-fixed">
             <template x-for="topic in data">
                 <p style="text-align: center">
                     <a class="text-decoration-none text-accent font-lg hover:b-b-2 " x-text="topic.topic" x-bind:href="'#'+topic.topic"></a>
@@ -99,6 +99,20 @@
                         "b-b-1", "...", "b-b-5", "...",
                         "b-l-1", "...", "b-l-5", "...",
                         
+                    ]
+                },
+                {
+                    topic: "Typography", list: [
+                        "text-primary", '...', "text-black", "...",
+                        "font-sm", '...', "font-xxl",
+                        "sm:font-sm", '...', "lg:font-xxl",
+                        "font-light", "...", "font-strong"
+                    ]
+                },
+                {
+                    topic: "Colors", list: [
+                        "bg-primary", "...", "bg-black",
+                        "b-primary", "...", "b-black",
                     ]
                 }
             ]

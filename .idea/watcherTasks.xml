@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectTasksOptions">
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="$FileName$:/var/www/html/gaudiamus/css/gaudiamus.min.css --style compressed" />
+      <option name="arguments" value="$FileName$:C:\xampp\htdocs\html\gaudiamus\css\gaudiamus.min.css --style compressed" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
