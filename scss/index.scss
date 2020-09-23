@@ -1,5 +1,5 @@
 /* Grid */
-$grid-container-prefix: 'grid';
+$grid-container-prefix: 'grid' !default;
 $columns: 12 !default;
 $items: 6 !default;
 $breakpoint-map: ("md":768px,"lg":1024px) !default;
@@ -13,11 +13,11 @@ $spacingStep: .25 !default;
 $numSpacingUnits: 5 !default;
 
 
-$shorthand-map: ("t":"top","b":"bottom","r":"right","l":"left","x":(1:"left",2:"right"),"y":(1:"top",2:"bottom"));
-$property-map: ("m":"margin","p":"padding");
-$position-map:("relative","absolute","fixed");
-$height-width-unit-map:("p":"%");
-$height-width-value-map:("25", "50", "75", "100");
+$shorthand-map: ("t":"top","b":"bottom","r":"right","l":"left","x":(1:"left",2:"right"),"y":(1:"top",2:"bottom")) !default;
+$property-map: ("m":"margin","p":"padding") !default;
+$position-map:("relative","absolute","fixed") !default;
+$height-width-unit-map:("p":"%") !default;
+$height-width-value-map:("25", "50", "75", "100") !default;
 
 @import "components/spacing";
 
@@ -42,7 +42,7 @@ $color-map:(
         "white": $white,
         "black": $black
 ) !default;
-$state-map:("focus","hover","active");
+$state-map:("focus","hover","active") !default;
 
 @import "components/colors";
 
@@ -58,7 +58,7 @@ $spread: 4px !default;
 /* Typography */
 
 $fontSize-map:("sm":3, "default":4, "md":5, "lg":7, "xl":9, "xxl":12) !default;
-$decoration-map:("underline","none");
-$weight-map:("light":200,"strong":700);
+$decoration-map:("underline","none") !default;
+$weight-map:("light":200,"strong":700) !default;
 
 @import "components/typography";
