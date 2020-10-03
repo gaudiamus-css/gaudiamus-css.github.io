@@ -18,6 +18,8 @@ See [gaudiamus-starter](https://github.com/gaudiamus-css/gaudiamus-starter) for 
 
 `npm i gaudiamus-css` or `yarn add gaudiamus-css`
 
+[![](https://data.jsdelivr.com/v1/package/npm/gaudiamus-css/badge)](https://www.jsdelivr.com/package/npm/gaudiamus-css)
+
 ### Basic usage
 
 ```scss
