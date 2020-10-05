@@ -16,7 +16,11 @@ See [gaudiamus-starter](https://github.com/gaudiamus-css/gaudiamus-starter) for 
 
 ## Installation
 
+The recommended way of using Gaudiamus is downloading it via the npm repository:
+
 `npm i gaudiamus-css` or `yarn add gaudiamus-css`
+
+It's also possible to do it from a CDN. However, this way does not provide all the Gaudiamus benefits neither enable its "build-your-own" CSS behavior/framework goal.
 
 [![](https://data.jsdelivr.com/v1/package/npm/gaudiamus-css/badge)](https://www.jsdelivr.com/package/npm/gaudiamus-css)
 
