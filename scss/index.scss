@@ -42,7 +42,33 @@ $color-map:(
         "white": $white,
         "black": $black
 ) !default;
+
+/*
+*  lighten/darken
+*/
+
+$lighten-map:(
+        "light": 25%,
+        "lighter": 50%,
+
+) !default;
+
+$darken-map:(
+        "dark": 25%,
+        "darker": 50%,
+) !default;
+
+/*
+* Opacity
+*/
+$opacity-map: ("50":.5,"75":.75,"85":.85,"90":.9,"95":.95) !default;
+
+/*
+* State
+*/
+
 $state-map:("focus","hover","active") !default;
+
 
 @import "components/colors";
 
@@ -51,9 +77,10 @@ $state-map:("focus","hover","active") !default;
 $depth: 3 !default;
 $spread: 4px !default;
 
+
 @import "components/shading";
 
-@import "components/form";
+//@import "components/form";
 
 /* Typography */
 
