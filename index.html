@@ -47,7 +47,7 @@
         Yet another <strong>CSS-framework?</strong> <br>Not really: Gaudiamus is a framework builder. <br> Highly
         inspired by
         <a class="text-accent text-decoration-none" target="_blank" href="https://tailwindcss.com">tailwind css</a>,
-        I wanted something non-invasive, light and foremost: based on <strong>CSS GRID</strong> rather than flexbox.
+        we wanted something non-invasive, light and foremost: based on <strong>CSS GRID</strong> rather than flexbox.
         <br>
         <strong>Why?</strong> <br>
         Because declaring responsive grid-behavior can finally happen where you intuitively want it: at the container
@@ -55,7 +55,7 @@
 
     </p>
     <div class="grid-6-6 md:grid-4-4-4 lg:grid-2-2-2-2-2-2"
-         x-data="{links:['installation','grid', 'utilities', 'compositions', 'typography', 'colors']}">
+         x-data="{links:[ 'installation','grid', 'utilities', 'compositions', 'typography', 'colors']}">
         <template x-for="link in links">
             <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white"
                x-bind:href="'#'+link" x-text="link.toUpperCase()"></a>
@@ -67,6 +67,11 @@
         <br>As such, <strong>Gaudiamus</strong> has no design or layout: it's a "build-your-own" solution. <br>
         ( so here you have my retro implementation )
     </p>
+
+    <div class="p-3 b-rounded b-1 b-primary font-md">
+        Gaudiamus does not require a bundler. The idea is to expose all relevant variables to the user without the necessity to fight with
+        webpack, babel postCSS and config files.
+    </div>
 
 
     <h2 class="font-xl" id="installation">➩ Installation</h2>
@@ -122,7 +127,7 @@
         <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 font-md">
             &lt;link rel="stylesheet"
             <wbr>
-            href="https://cdn.jsdelivr.net/npm/gaudiamus-css@1.1.0/css/gaudiamus.min.css">
+            href="https://cdn.jsdelivr.net/npm/gaudiamus-css@latest/css/gaudiamus.min.css">
         </div>
     </div>
 
@@ -250,20 +255,21 @@
     <p class="font-md ">
         Due to the nature of CSS, all dashed-utilities can be used to directly compose (see <a class="text-white"
                                                                                                href="#compositions">compositions</a>),
-        while colon-utilities need their own rules.
+        while colon-utilities need to be escaped.
     </p>
     <p class="font-md ">
-        <strong>Example dashed-utility:</strong> <code>raise-1-white</code> (creates a white drop shadow (level 1))
+        <strong>Example dashed-utility:</strong>
+    </p>
+    <p class="raise-1-black-50 p-2">
+        <code>raise-1-black-50</code> (creates dark transparent drop shadow (level 1))
     </p>
     <p class="font-md ">
-        <strong>Example colon-utility:</strong> <code>hover:raise-1-white</code> (creates a white drop shadow (level 1)
-        when element is hovered)
+        <strong>Example colon-utility:</strong>
     </p>
-    <p class="font-md ">
-        Many utility classes can be named via variables. For a list of default classes, see
-        <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-x-1 m-1 hover:raise-1-white"
-           href="classes.html">classes</a>.
+    <p class="hover:raise-1-white-50 p-2">
+        <code>hover:raise-1-white-50</code> (creates dark transparent drop shadow on hover (level 1))
     </p>
+
     <article class="font-md">
         <div class="grid-12 md:grid-5-7">
             <p>Variable</p>
@@ -277,6 +283,31 @@
 
         </template>
     </article>
+    <p class="font-md">
+        These settings define how spacing & shading utility classes are constructed. The patterns are <br>
+        spacing: <br>
+        <code class="font-default">[{state}:]{property-map-key}[-{shorthand-map-key}]-{unit}</code> <br>
+        height & width: <br>
+        <code class="font-default">[{state}:]w-{height-width-value-key}{height-width-unit-map-key}</code> <br>
+        <code class="font-default">[{state}:]h-{height-width-value-key}{height-width-unit-map-key}</code> <br>
+        position: <br>
+        <code class="font-default">[{state}:]position-{position-map-key}</code> <br>
+        border: <br>
+        <code class="font-default">[{state}:]{border-key}[-{shorthand-map-key}][-unit|[{rounded-key}[-depthUnit]]|[-{color-map-key}]]</code> <br>
+        elevation: <br>
+        <code class="font-default">[{state}:]{raise-key}-{unit}</code> <br>
+    </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 ">
+        <code>
+            // example assuming default values: <br>
+            &lt;p class="m-t-5 p-4 w-100p position-relative b-x-2 b-rounded b-primary"> <br>
+            &nbsp;&nbsp;Margin top 1.25rem (5 * .25), padding 1rem (4 * .25), <br>
+            &nbsp;&nbsp;100% width, positioned relative <br>
+            &nbsp;&nbsp;with a primary colored border left & right with default border-radius. <br>
+
+            &lt;/p>
+        </code>
+    </div>
     <h2 class="font-xl" id="compositions">➩ Compositions</h2>
     <p class="font-md">
         Writing utility based can become quite verbose. While it does make sense to use them while developing your
@@ -325,20 +356,35 @@
     </p>
     <h3 class="font-md text-accent m-t-3">Variables: typography</h3>
     <article class="font-md">
-        <div class="grid-3-9">
+        <div class="grid-12 md:grid-5-7">
             <p><strong>Variable</strong></p>
             <p><strong>Default value</strong></p>
-            <p><strong class="text-primary">$fontSize-map</strong></p>
-            <p>("sm":3, "md":5, "lg":7, "xl":9, "xxl":12)</p>
-        </div>
 
+        </div>
+        <template x-for="g in data.typography">
+            <div class="grid-12 md:grid-5-7">
+                <p><strong class="text-primary" x-text="g.name">$primaryColor</strong></p>
+                <p x-text="g.value"></p>
+            </div>
+
+        </template>
     </article>
     <p class="font-md">
-        For all available font & text-utilities see <a
-            class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-x-1 m-1 hover:raise-1-white"
-            href="classes.html">classes</a>.
-
+        These settings define how typographic utility classes are constructed. The patterns are <br>
+        decoration: <br>
+        <code class="font-default">text-decoration-{decoration-map-key}</code> <br>
+        size & weight: <br>
+        <code class="font-default">font-{fontSize-map-key|weight-map-key}</code> <br>
     </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 ">
+        <code>
+            // example assuming default values: <br>
+            &lt;p class="font-strong font-md text-decoration-underline"> <br>
+            &nbsp;&nbsp;Font weight of 700, 1.25 rem in size (5 * .25rem)<br>
+            &nbsp;&nbsp;underlined text <br>
+            &lt;/p>
+        </code>
+    </div>
     <h2 class="font-xl" id="colors">➩ Colors</h2>
     <p class="font-md">
         Setting up colors is likely one of the first customizations you are going to fiddle around with.
@@ -361,63 +407,42 @@
     </article>
     <p class="font-md">
         Next, let's decide what utility classes to generate and how to name them.
-        We use three SASS-maps to achieve that:
-    </p>
-    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 ">
-        <code>
-            $color-class-map:("bg":"background-color","transparent":transparent); <br><br>
-            $color-map:("primary":$primaryColor) <br><br>
-            $state-map:("hover")
-        </code>
-    </div>
-    <p class="font-md">
-        The above example would generate utility-classes of the following pattern: <br>
-        [color-class-map-key]-[color-map-key]{ [color-class-map-value]: [color-map-value] } <br>
-        for each registered state (pseudo-class): <br>
-        e.g. [color-class-map-key]-[color-map-key]:[state-map-value]{...}
-    </p>
-    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 ">
-        <code>
-            // resulting css <br>
-            .bg-primary{ background-color: #258cc7}; <br>
-            .bg-transparent{ background-color: transparent}; <br>
-            .hover\:bg-transparent:hover{ background-color: transparent}; <br>
-            .hover\:bg-primary:hover{ background-color: #258cc7}; <br><br>
-            // in html: <br>
-            &lt;p class="bg-primary hover:bg-transparent">hide background on hover&lt;/p>
-        </code>
-    </div>
-    <p class="font-md">
-        Needless to say, the default maps do a little more than that. Here are the defaults:
+        We use the following SASS-maps to achieve that:
     </p>
     <article class="font-md">
-        <div class="grid-12 md:grid-5-7 ">
+        <div class="grid-12 md:grid-5-7">
             <p><strong>Variable</strong></p>
             <p><strong>Default value</strong></p>
-
-            <p><strong class="text-primary">$color-class-map</strong></p>
-            <p>("bg":"background-color","text":"color","b":"border-color")</p>
-
-            <p><strong class="text-primary">$color-map</strong></p>
-            <p>(
-                "primary":$primaryColor,
-                "accent":$accentColor,
-                "success":$successColor,
-                "warning":$warningColor,
-                "transparent":transparent,
-                "gray": $gray,
-                "white": $white,
-                "black": $black
-                )</p>
-
-            <p><strong class="text-primary">$state-map</strong></p>
-            <p>("focus","hover","active")</p>
-
         </div>
+        <template x-for="color in data.colorMaps">
+            <div class="grid-12 md:grid-5-7">
+                <p><strong class="text-primary" x-text="color.name">$primaryColor</strong></p>
+                <p x-text="color.value"></p>
+            </div>
 
+        </template>
     </article>
+
+    <p class="font-md">
+        These settings define how color utility classes are constructed. The pattern is <br>
+        <code class="font-default">[{state}:]{color-class-map-key}-{color-map-key}[-{lighten/darken-map-key}][-{opacity-map-key}]</code> <br>
+    </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 ">
+        <code>
+            // example assuming default values: <br>
+            &lt;p class="bg-primary-light-50 hover:bg-primary"> <br>
+            &nbsp;&nbsp;Background will be a 25% lighter version of color primary with an alpha (opacity) value of .5.
+            <br>
+            &nbsp;&nbsp;When hovered, the background changes to the pure primary color.
+            <br>
+            &lt;/p>
+        </code>
+    </div>
+
     <div class="m-t-5 m-b-5 text-transparent">spacer</div>
 </div>
+<style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#258cc7;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style>
+<span id="forkongithub"><a href="https://github.com/gaudiamus-css/gaudiamus-css.github.io#readme">Fork me on GitHub</a></span>
 <script>
     window.onscroll = function() {scrollFunction()};
     const topBtn = document.getElementById('top-btn');
@@ -445,6 +470,39 @@
                     {name: '$gray', color: 'rgba(0,0,0,.2)'},
                     {name: '$white', color: '#e8e5e5'},
                     {name: '$black', color: '#101010'},
+
+                ],
+                colorMaps:[
+                    {name: '$color-class-map', value: '("bg":"background-color","text":"color","b":"border-color")'},
+                    {name: '$color-map', value: '(\n' +
+                            '        "primary":$primaryColor,\n' +
+                            '        "accent":$accentColor,\n' +
+                            '        "success":$successColor,\n' +
+                            '        "warning":$warningColor,\n' +
+                            '        "transparent":transparent,\n' +
+                            '        "gray": $gray,\n' +
+                            '        "white": $white,\n' +
+                            '        "black": $black\n' +
+                            ')'},
+                    {name: '$lighten-map',  value: '(\n' +
+                            '        "light": 25%,\n' +
+                            '        "lighter": 50%,\n' +
+                            ')',
+                    },
+                    {name: '$darken-map',  value: '(\n' +
+                            '        "dark": 25%,\n' +
+                            '        "darker": 50%,\n' +
+                            ')',
+                    },
+                    {name: '$opacity-map',  value: '(\n' +
+                            '        "50": .5,\n' +
+                            '        "75": .75,\n' +
+                            '        "85": .85,\n' +
+                            '        "90": .9,\n' +
+                            '        "95": .96,\n' +
+                            ')',
+                    },
+                    {name: '$state-map', value: '("focus","hover","active")'}
                 ],
                 utilities: [
                     {name: '$baseSpacing', value: '20px'},
@@ -456,11 +514,31 @@
                         value: '("t":"top","b":"bottom","r":"right","l":"left","x":(1:"left",2:"right"),"y":(1:"top",2:"bottom"))'
                     },
                     {name: '$property-map', value: '("m":"margin","p":"padding")'},
+                    {name: '$position-map', value: '("relative","absolute","fixed")'},
+                    {name: '$height-width-unit-map', value: '("p":"%")'},
+                    {name: '$height-width-value-map', value: '("25", "50", "75", "100")'},
+                    {name: '$depth', value: 3},
+                    {name: '$spread', value: '4px'},
+                    {name: '$border-key', value: 'b'},
+                    {name: '$raise-key', value: 'raise'},
                 ],
                 grid: [
+                    {name: '$grid-container-prefix', value: 'grid'},
                     {name: '$columns', value:'12'},
                     {name: '$items', value:'6'},
                     {name: '$breakpoint-map', value:'("md":768px,"lg":1024px)'},
+                ],
+                typography: [
+                    {name: '$fontSize-map', value: '(\n' +
+                            '        "sm":3,\n' +
+                            '        "default":4,\n' +
+                            '        "md":5,\n' +
+                            '        "lg":7,\n' +
+                            '        "xl":9,\n' +
+                            '        "xxl":12\n' +
+                            ')'},
+                    {name: '$decoration-map', value: '("underline","none")'},
+                    {name: '$weight-map', value: '("light":200,"strong":700)'},
                 ]
             }
         }
