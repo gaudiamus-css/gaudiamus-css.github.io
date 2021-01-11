@@ -16,6 +16,7 @@ $numSpacingUnits: 5 !default;
 $shorthand-map: ("t":"top","b":"bottom","r":"right","l":"left","x":(1:"left",2:"right"),"y":(1:"top",2:"bottom")) !default;
 $property-map: ("m":"margin","p":"padding") !default;
 $position-map:("relative","absolute","fixed") !default;
+
 $height-width-unit-map:("p":"%") !default;
 $height-width-value-map:("25", "50", "75", "100") !default;
 
@@ -77,6 +78,10 @@ $state-map:("focus","hover","active") !default;
 $depth: 3 !default;
 $spread: 4px !default;
 
+$border-key: "b" !default;
+$rounded-key: "rounded" !default;
+$raise-key: "raise" !default;
+
 
 @import "components/shading";
 
@@ -84,7 +89,14 @@ $spread: 4px !default;
 
 /* Typography */
 
-$fontSize-map:("sm":3, "default":4, "md":5, "lg":7, "xl":9, "xxl":12) !default;
+$fontSize-map:(
+        "sm":3,
+        "default":4,
+        "md":5,
+        "lg":7,
+        "xl":9,
+        "xxl":12
+) !default;
 $decoration-map:("underline","none") !default;
 $weight-map:("light":200,"strong":700) !default;
 

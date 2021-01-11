@@ -1,3 +1,4 @@
+
 @mixin generate-opacity($className, $property, $value, $state: false){
   @each $opacity-name, $opacity-value in $opacity-map{
     $gName:#{$className}-#{$opacity-name};
@@ -9,6 +10,17 @@
   }
 }
 
+@function expand-opacity(){
+  $softAdd:();
+  @each $opacity-name, $opacity-value in $opacity-map {
+    @each $name, $color in $color-map{
+      $gName: #{$name}-#{$opacity-name};
+      $softAdd :map-merge($softAdd, ($gName: rgba($color, $opacity-value)));
+    }
+
+  }
+  @return $softAdd;
+}
 
 @function expand-lighten-darken() {
   $softAdd:();
@@ -62,12 +74,10 @@
 
     @each $subclass, $value in $color-map{
       .#{$class}-#{$subclass} { #{$property}: $value }
-      @include generate-opacity(#{$class}-#{$subclass}, $property, $value);
-      //@include generate-lighten-darken(#{$class}-#{$subclass}, $property, $value);
       @include generate-states(#{$class}-#{$subclass}, $property, $value);
-
     }
   }
 }
 $color-map: map-merge($color-map, expand-lighten-darken());
+$color-map: map-merge($color-map, expand-opacity());
 @include generate-color-classes;

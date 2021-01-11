@@ -1,36 +1,60 @@
 /* border */
-$sides:("t":"top","r":"right","b":"bottom", "l":"left");
 
-@for $i from 0 to $depth{
-  .b-#{$i}{ border-width: #{$i}px; border-style:  solid;}
-  @each $name, $side in $sides{
-    .b-#{$name}-#{$i}{ border-#{$side}-width: #{$i}px; border-#{$side}-style:  solid;}
-    @each $state in $state-map{
-      .#{$state}\:b-#{$name}-#{$i}:#{$state} {
+@for $i from 0 through $depth{
+  .#{$border-key}-#{$i}{ border-width: #{$i}px; border-style:  solid;}
+  @each $name, $side in $shorthand-map{
+    .#{$border-key}-#{$name}-#{$i}{
+      @if(type-of($side) == 'map'){
+        @each $sub-name, $s-side in $side{
+          border-#{$s-side}-width: #{$i}px; border-#{$s-side}-style:  solid;
+        }
+      } @else {
         border-#{$side}-width: #{$i}px; border-#{$side}-style:  solid;
       }
     }
+    @each $state in $state-map{
+      .#{$state}\:#{$border-key}-#{$name}-#{$i}:#{$state} {
+        @if(type-of($side) == 'map'){
+          @each $sub-name, $s-side in $side{
+            border-#{$s-side}-width: #{$i}px; border-#{$s-side}-style:  solid;
+          }
+        } @else {
+          border-#{$side}-width: #{$i}px; border-#{$side}-style:  solid;
+        }
+
+      }
+
+
+    }
+
+
   }
   @each $state in $state-map{
-    .#{$state}\:b-#{$i}:#{$state} {
+    .#{$state}\:#{$border-key}-#{$i}:#{$state} {
       border-width: #{$i}px; border-style:  solid;
     }
   }
 }
-.b-rounded{
+.#{$border-key}-#{$rounded-key}{
   border-radius: unquote($spacingStep+$spacingUnit);
+}
+@for $i from 1 through $depth {
+  .#{$border-key}-#{$rounded-key}-#{$i} {
+    border-radius: unquote(($spacingStep*$i)+$spacingUnit);
+  }
+
 }
 
 /* rise */
 
 
-@for $i from 1 to $depth{
+@for $i from 1 through $depth{
   @each $subclass, $value in $color-map{
-    .raise-#{$i}-#{$subclass} {
+    .#{$raise-key}-#{$i}-#{$subclass} {
       box-shadow: unquote($i*.5*$spacingStep+$spacingUnit) + ' ' unquote(($i*.75)*$spacingStep+$spacingUnit) + ' ' + $spread $value
     }
     @each $state in $state-map{
-      .#{$state}\:raise-#{$i}-#{$subclass}:#{$state} {
+      .#{$state}\:#{$raise-key}-#{$i}-#{$subclass}:#{$state} {
         box-shadow: unquote($i*.5*$spacingStep+$spacingUnit) + ' ' unquote(($i*.75)*$spacingStep+$spacingUnit) + ' ' + $spread $value
       }
     }
