@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" style="background: #212121">
+<head>
+    <meta charset="UTF-8">
+    <title>Playground</title>
+    <link rel="stylesheet" href="css/gaudiamus.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/theme/dracula.min.css">
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/codemirror.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/addon/lint/lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/addon/lint/html-lint.min.js"></script>
+</head>
+<body>
+<div class="grid-12">
+    <a href="index.html" class="place-x-center w-25p" >
+        <img src="gaudiamus-logo.png" alt="logo" class="w-100p">
+    </a>
+</div>
+<div class="grid-6-6">
+    <div class="p-r-2">
+        <h3 class="text-primary">HTML</h3>
+        <textarea id="code"></textarea>
+    </div>
+    <div class="display" id="app">
+        <h3 class="text-primary">Output</h3>
+        <section v-html="template.value"></section>
+    </div>
+</div>
+<script>
+    const textArea = document.getElementById('code');
+    const starter = `
+<div class="container bg-white-light p-3">
+  <section class="grid-12 md:grid-6-6">
+    <div class="bg:primary-light b-1 b-primary b-rounded-2 m-r-1 p-3 hover:raise-1-gray">
+      <h2 class="text-accent">Responsive box</h2>
+      <p>one</p>
+    </div>
+    <div class="bg:primary-light b-1 b-primary b-rounded-2 m-l-1 p-3 hover:raise-1-gray">
+      <h2 class="text-primary">Responsive box</h2>
+      <p>two</p>
+    </div>
+  </section>
+</div>
+    `
+
+    const code = CodeMirror.fromTextArea(document.getElementById('code'), {
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        mode:'html',
+        lint:true,
+        theme: 'dracula'
+    })
+    code.setValue(starter)
+    const template = Vue.reactive({ value: starter });
+
+    code.on('change',(d)=>{
+        template.value = d.getValue();
+    })
+    Vue.createApp({
+        data:()=>({
+            template
+        })
+    }).mount('#app')
+</script>
+</body>
+</html>

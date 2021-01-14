@@ -1,9 +1,10 @@
 {
   "name": "gaudiamus-css",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "keywords": ["scss","css grid","css framework"],
   "description": "css-grid based css-only framework for the creator & minimalist",
   "main": "scss/index.scss",
+  "unpkg": "css/gaudiamus.min.css",
   "repository": "https://github.com/gaudiamus-css/gaudiamus-css.github.io",
   "author": "Stefan Roehrl",
   "license": "GPL-3.0-or-later",
