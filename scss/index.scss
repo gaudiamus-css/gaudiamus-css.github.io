@@ -3,6 +3,9 @@ $grid-container-prefix: 'grid' !default;
 $columns: 12 !default;
 $items: 6 !default;
 $breakpoint-map: ("md":768px,"lg":1024px) !default;
+$placement-key: "place" !default;
+$placement-map: ("x":"justify-self", "y":"align-self") !default;
+$placement-properties:("start":"start","end":"end","center":"center","stretch":"stretch") !default;
 
 @import "components/grid";
 
@@ -15,6 +18,7 @@ $numSpacingUnits: 5 !default;
 
 $shorthand-map: ("t":"top","b":"bottom","r":"right","l":"left","x":(1:"left",2:"right"),"y":(1:"top",2:"bottom")) !default;
 $property-map: ("m":"margin","p":"padding") !default;
+$position-key:"position" !default;
 $position-map:("relative","absolute","fixed") !default;
 
 $height-width-unit-map:("p":"%") !default;
@@ -71,6 +75,7 @@ $opacity-map: ("50":.5,"75":.75,"85":.85,"90":.9,"95":.95) !default;
 $state-map:("focus","hover","active") !default;
 
 
+
 @import "components/colors";
 
 /* Shading & borders */
@@ -81,6 +86,9 @@ $spread: 4px !default;
 $border-key: "b" !default;
 $rounded-key: "rounded" !default;
 $raise-key: "raise" !default;
+
+$cursor-key: "cursor" !default;
+$cursor-map:("pointer":"pointer") !default;
 
 
 @import "components/shading";

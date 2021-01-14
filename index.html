@@ -45,8 +45,7 @@
     <h1 class="font-xxl" id="title">Gaudiamus</h1>
     <p class="font-lg" style="line-height: 130%">
         Yet another <strong>CSS-framework?</strong> <br>Not really: Gaudiamus is a framework builder. <br> Highly
-        inspired by
-        <a class="text-accent text-decoration-none" target="_blank" href="https://tailwindcss.com">tailwind css</a>,
+        inspired by the utility-approach trend,
         we wanted something non-invasive, light and foremost: based on <strong>CSS GRID</strong> rather than flexbox.
         <br>
         <strong>Why?</strong> <br>
@@ -284,14 +283,16 @@
         </template>
     </article>
     <p class="font-md">
-        These settings define how spacing & shading utility classes are constructed. The patterns are <br>
+        These settings define how positioning, spacing & shading utility classes are constructed. The patterns are <br>
         spacing: <br>
         <code class="font-default">[{state}:]{property-map-key}[-{shorthand-map-key}]-{unit}</code> <br>
         height & width: <br>
         <code class="font-default">[{state}:]w-{height-width-value-key}{height-width-unit-map-key}</code> <br>
         <code class="font-default">[{state}:]h-{height-width-value-key}{height-width-unit-map-key}</code> <br>
         position: <br>
-        <code class="font-default">[{state}:]position-{position-map-key}</code> <br>
+        <code class="font-default">[{state}:]{position-key}-{position-map-key}</code> <br>
+        cursor: <br>
+        <code class="font-default">{cursor-key}-{cursor-map-key}</code> <br>
         border: <br>
         <code class="font-default">[{state}:]{border-key}[-{shorthand-map-key}][-unit|[{rounded-key}[-depthUnit]]|[-{color-map-key}]]</code> <br>
         elevation: <br>
@@ -514,6 +515,7 @@
                         value: '("t":"top","b":"bottom","r":"right","l":"left","x":(1:"left",2:"right"),"y":(1:"top",2:"bottom"))'
                     },
                     {name: '$property-map', value: '("m":"margin","p":"padding")'},
+                    {name: '$position-key', value: 'position'},
                     {name: '$position-map', value: '("relative","absolute","fixed")'},
                     {name: '$height-width-unit-map', value: '("p":"%")'},
                     {name: '$height-width-value-map', value: '("25", "50", "75", "100")'},
@@ -521,12 +523,17 @@
                     {name: '$spread', value: '4px'},
                     {name: '$border-key', value: 'b'},
                     {name: '$raise-key', value: 'raise'},
+                    {name: '$cursor-key', value: 'cursor'},
+                    {name: '$cursor-map', value: '("pointer":"pointer")'},
                 ],
                 grid: [
                     {name: '$grid-container-prefix', value: 'grid'},
                     {name: '$columns', value:'12'},
                     {name: '$items', value:'6'},
                     {name: '$breakpoint-map', value:'("md":768px,"lg":1024px)'},
+                    {name: '$placement-key', value:'place'},
+                    {name: '$placement-map', value:'("x":"justify-self", "y":"align-self")'},
+                    {name: '$placement-properties', value:'("start":"start","end":"end","center":"center","stretch":"stretch")'},
                 ],
                 typography: [
                     {name: '$fontSize-map', value: '(\n' +

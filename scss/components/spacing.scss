@@ -36,10 +36,10 @@
 }
 
 @each $position in $position-map{
-  .position-#{$position}{position: unquote($position)}
+  .#{$position-key}-#{$position}{position: unquote($position)}
   @each $breakpoint, $value in $breakpoint-map {
     @media (min-width: $value) {
-      .#{$breakpoint}\:position-#{$position}{position: unquote($position)}
+      .#{$breakpoint}\:#{$position-key}-#{$position}{position: unquote($position)}
     }
   }
 }
