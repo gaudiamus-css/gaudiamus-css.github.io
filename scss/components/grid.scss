@@ -7,14 +7,13 @@
   grid-template-rows: auto;
 }
 
-$grid-item-properties:("start","end","center","stretch");
-@each $property in $grid-item-properties{
-  .place-x-#{$property}{ justify-self: unquote($property)}
-  .place-y-#{$property}{ align-self: unquote($property)}
-  @each $breakpoint, $value in $breakpoint-map {
-    @media (min-width: $value) {
-      .#{$breakpoint}\:place-x-#{$property}{ justify-self: unquote($property)}
-      .#{$breakpoint}\:place-y-#{$property}{ align-self: unquote($property)}
+@each $property, $propertyValue in $placement-properties{
+  @each $axis, $placementValue in $placement-map{
+    .#{$placement-key}-#{$axis}-#{$property}{ #{$placementValue}: unquote($propertyValue)}
+    @each $breakpoint, $value in $breakpoint-map {
+      @media (min-width: $value) {
+        .#{$breakpoint}\:#{$placement-key}-#{$axis}-#{$property}{ #{$placementValue}: unquote($propertyValue)}
+      }
     }
   }
 }

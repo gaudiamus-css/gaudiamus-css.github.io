@@ -61,6 +61,10 @@
   }
 }
 
-/* states */
+/* cursor */
+
+@each $name, $value in $cursor-map{
+  .#{$cursor-key}-#{$name}{ cursor: unquote($value)};
+}
 
 
