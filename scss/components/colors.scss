@@ -1,83 +1,16 @@
+@use "operations" as ops;
 
-@mixin generate-opacity($className, $property, $value, $state: false){
-  @each $opacity-name, $opacity-value in $opacity-map{
-    $gName:#{$className}-#{$opacity-name};
-    @if $state {
-      .#{$gName}:#{$state}{ #{$property}:  rgba($value,$opacity-value)}
-    } @else {
-      .#{$gName}{ #{$property}:  rgba($value,$opacity-value)}
-    }
-  }
+
+// light & dark
+$color-map: ops.extendMap($color-map, $lighten-map, get-function("lighten"));
+$color-map: ops.extendMap($color-map, $darken-map, get-function("darken"));
+
+// opacity
+$color-map: ops.extendMap($color-map, $opacity-map, get-function("rgba"));
+
+// generate
+@each $prefix, $property in $color-class-map {
+  @include ops.mapToClassPure($prefix, $color-map, $property, false, $state-map)
 }
 
-@function expand-opacity(){
-  $softAdd:();
-  @each $opacity-name, $opacity-value in $opacity-map {
-    @each $name, $color in $color-map{
-      $gName: #{$name}-#{$opacity-name};
-      $softAdd :map-merge($softAdd, ($gName: rgba($color, $opacity-value)));
-    }
 
-  }
-  @return $softAdd;
-}
-
-@function expand-lighten-darken() {
-  $softAdd:();
-  @each $modifier, $manipulate in $lighten-map{
-    @each $name, $color in $color-map{
-      $mergeIn:(
-              #{$name}-#{$modifier}: lighten($color, $manipulate),
-      );
-      $softAdd: map-merge($softAdd, $mergeIn);
-    }
-  }
-  @each $modifier, $manipulate in $darken-map{
-    @each $name, $color in $color-map{
-      $mergeIn:(
-              #{$name}-#{$modifier}: darken($color, $manipulate),
-      );
-      $softAdd: map-merge($softAdd, $mergeIn);
-    }
-  }
-
-  @return $softAdd;
-}
-
-@mixin generate-lighten-darken($className, $property, $value, $state: false){
-  @each $modifier, $manipulate in $lighten-map{
-    @if $state {
-      .#{$className}-#{$modifier}:#{$state} { #{$property}: lighten($value, $manipulate) }
-    } @else {
-      .#{$className}-#{$modifier} { #{$property}: lighten($value, $manipulate) }
-    }
-  }
-  @each $modifier, $manipulate in $darken-map{
-    @if $state {
-      .#{$className}-#{$modifier}:#{$state} { #{$property}: darken($value, $manipulate) }
-    } @else {
-      .#{$className}-#{$modifier} { #{$property}: darken($value, $manipulate) }
-    }
-  }
-}
-
-@mixin generate-states($className, $property, $value){
-  @each $state in $state-map{
-    .#{$state}\:#{$className}:#{$state} { #{$property}: $value }
-    $gName: #{$state}\:#{$className};
-    @include generate-opacity($gName, $property, $value, $state);
-  }
-}
-
-@mixin generate-color-classes{
-  @each $class, $property in $color-class-map{
-
-    @each $subclass, $value in $color-map{
-      .#{$class}-#{$subclass} { #{$property}: $value }
-      @include generate-states(#{$class}-#{$subclass}, $property, $value);
-    }
-  }
-}
-$color-map: map-merge($color-map, expand-lighten-darken());
-$color-map: map-merge($color-map, expand-opacity());
-@include generate-color-classes;

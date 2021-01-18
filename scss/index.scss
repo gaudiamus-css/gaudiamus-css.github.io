@@ -1,11 +1,15 @@
+@use "components/operations" as ops;
+
+@import "components/reset";
+
 /* Grid */
 $grid-container-prefix: 'grid' !default;
 $columns: 12 !default;
 $items: 6 !default;
-$breakpoint-map: ("md":768px,"lg":1024px) !default;
+$breakpoint-map: ("md":768px, "lg":1024px) !default;
 $placement-key: "place" !default;
 $placement-map: ("x":"justify-self", "y":"align-self") !default;
-$placement-properties:("start":"start","end":"end","center":"center","stretch":"stretch") !default;
+$placement-properties: ("start":"start", "end":"end", "center":"center", "stretch":"stretch") !default;
 
 @import "components/grid";
 
@@ -15,14 +19,13 @@ $spacingUnit: 'rem' !default;
 $spacingStep: .25 !default;
 $numSpacingUnits: 5 !default;
 
+$shorthand-map: ("t":"top", "b":"bottom", "r":"right", "l":"left", "x":(1:"left", 2:"right"), "y":(1:"top", 2:"bottom")) !default;
+$property-map: ("m":"margin", "p":"padding") !default;
+$position-key: "position" !default;
+$position-map: ("relative", "absolute", "fixed") !default;
 
-$shorthand-map: ("t":"top","b":"bottom","r":"right","l":"left","x":(1:"left",2:"right"),"y":(1:"top",2:"bottom")) !default;
-$property-map: ("m":"margin","p":"padding") !default;
-$position-key:"position" !default;
-$position-map:("relative","absolute","fixed") !default;
-
-$height-width-unit-map:("p":"%") !default;
-$height-width-value-map:("25", "50", "75", "100") !default;
+$height-width-unit-map: ("p":"%") !default;
+$height-width-value-map: ("25", "50", "75", "80", "90", "100") !default;
 
 @import "components/spacing";
 
@@ -31,13 +34,13 @@ $primaryColor: #258cc7 !default;
 $accentColor: #21d593 !default;
 $successColor: #1f921f !default;
 $warningColor: #c92d2d !default;
-$gray: rgba(0,0,0,.2) !default;
+$gray: rgba(0, 0, 0, .2) !default;
 $white: #e8e5e5 !default;
 $black: #101010 !default;
 
-$color-class-map:("bg":"background-color","text":"color","b":"border-color") !default;
+$color-class-map: ("bg":"background-color", "text":"color", "b":"border-color") !default;
 
-$color-map:(
+$color-map: (
         "primary":$primaryColor,
         "accent":$accentColor,
         "success":$successColor,
@@ -48,17 +51,17 @@ $color-map:(
         "black": $black
 ) !default;
 
+
 /*
 *  lighten/darken
 */
 
-$lighten-map:(
+$lighten-map: (
         "light": 25%,
         "lighter": 50%,
-
 ) !default;
 
-$darken-map:(
+$darken-map: (
         "dark": 25%,
         "darker": 50%,
 ) !default;
@@ -66,15 +69,13 @@ $darken-map:(
 /*
 * Opacity
 */
-$opacity-map: ("50":.5,"75":.75,"85":.85,"90":.9,"95":.95) !default;
+$opacity-map: ("50":.5, "75":.75, "85":.85, "90":.9, "95":.95) !default;
 
 /*
 * State
 */
 
-$state-map:("focus","hover","active") !default;
-
-
+$state-map: ("focus", "hover", "active") !default;
 
 @import "components/colors";
 
@@ -88,16 +89,15 @@ $rounded-key: "rounded" !default;
 $raise-key: "raise" !default;
 
 $cursor-key: "cursor" !default;
-$cursor-map:("pointer":"pointer") !default;
+$cursor-map: ("pointer":"pointer") !default;
 
 
 @import "components/shading";
 
-//@import "components/form";
 
 /* Typography */
 
-$fontSize-map:(
+$fontSize-map: (
         "sm":3,
         "default":4,
         "md":5,
@@ -105,7 +105,18 @@ $fontSize-map:(
         "xl":9,
         "xxl":12
 ) !default;
-$decoration-map:("underline","none") !default;
-$weight-map:("light":200,"strong":700) !default;
+$decoration-map: ("underline", "none") !default;
+$weight-map: ("light":200, "strong":700) !default;
 
 @import "components/typography";
+
+/*
+* Display
+*/
+
+$display-key: "d" !default;
+$display-map: ("hidden":"none", "flex":"flex", "block":"block") !default;
+$flex-key: "f" !default;
+$flex-map: ("1":"1") !default;
+
+@import "components/display";
