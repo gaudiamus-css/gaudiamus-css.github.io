@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectTasksOptions">
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="$FileName$:C:\xampp\htdocs\gaudiamus\css\gaudiamus.min.css --style compressed" />
+      <option name="arguments" value="$FileName$:C:\xampp\htdocs\gaudiamus\css\gaudiamus.min.css" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
@@ -16,7 +16,7 @@
       <option name="outputFromStdout" value="false" />
       <option name="program" value="$USER_HOME$/AppData/Roaming/npm/sass" />
       <option name="runOnExternalChanges" value="true" />
-      <option name="scopeName" value="Project Files" />
+      <option name="scopeName" value="index" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="" />
       <envs />
