@@ -1,0 +1,133 @@
+/*
+* Generates states for a given class
+*/
+@mixin generate-states($class, $state-map) {
+  @each $state in $state-map {
+    .#{$state}\:#{$class}:#{$state} {
+      @extend .#{$class};
+    }
+  }
+}
+/*
+* Generates breakpoints for a given property & value
+*/
+@mixin generate-breakpoints($class, $property, $value,  $breakpoint-map) {
+  @each $breakpoint, $screen in $breakpoint-map {
+    @media (min-width: $screen) {
+      .#{$breakpoint}\:#{$class}{
+        #{$property}:$value !important;
+      }
+    }
+  }
+}
+
+@function quoteOrNot($bool, $value){
+  @if($bool){
+    @return unquote($value)
+  } @else {
+    @return $value;
+  }
+}
+
+@function extendMap($map, $modifyingMap, $function:null){
+  $added:();
+  @each $modifier, $manipulate in $modifyingMap{
+    @each $name, $property in $map{
+      $mergeIn:(
+              #{$name}-#{$modifier}: call($function, $property, $manipulate),
+      );
+      $added: map-merge($added, $mergeIn);
+    }
+  }
+  @return map-merge($map,$added);
+}
+
+@mixin utilityUnitMatcher($className, $property, $depth, $step, $unit){
+  @for $i from 0 through $depth{
+    $class: unquote($className+'-'+$i);
+    $calculatedProperty:'';
+    .#{$class} {
+      @each $j, $prop in $property{
+        @if($calculatedProperty == ''){
+          $calculatedProperty:$prop;
+          @if($prop == null){
+            #{$j}: unquote(($i * $step)+$unit);
+          }
+        } @else{
+          $p: #{$calculatedProperty}-#{$prop};
+          #{$p}: unquote(($i * $step)+$unit);
+        }
+      }
+    }
+  }
+}
+
+@mixin mapToClass($key, $map, $property, $isResponsive, $isStateful, $quotes){
+  @each $mapKey, $value in $map {
+    @if($value == null){
+      $value: $mapKey;
+    }
+    .#{$key}-#{$mapKey} {
+      #{$property}: quoteOrNot($quotes,$value)
+    }
+    @if ($isStateful) {
+      @include generate-states(#{$key}-#{$mapKey}, $isStateful)
+    }
+    @if ($isResponsive) {
+      @include generate-breakpoints(#{$key}-#{$mapKey}, $property, quoteOrNot($quotes,$value), $isResponsive)
+    }
+  }
+}
+
+@mixin mapToClassCallback($key, $map, $property, $function){
+  @each $mapKey, $value in $map{
+    @if($value == null){
+      $value: $mapKey;
+    }
+    .#{$key}-#{$mapKey} {
+      #{$property}: call($function,$value, $mapKey);
+    }
+  }
+}
+
+@mixin crossMapping($key, $outerMap, $innerMap, $isResponsive:false, $isStateful:false, $quotes:true){
+  @each $outerName, $outerValue in $outerMap{
+    @each $innerName, $innerValue in $innerMap{
+      .#{$key}-#{$innerName}-#{$outerName}{ #{$innerValue}: quoteOrNot($quotes,$outerValue)}
+      @if ($isStateful) {
+        @include generate-states(#{$key}-#{$innerName}-#{$outerName}, $isStateful)
+      }
+      @if ($isResponsive) {
+        @include generate-breakpoints(#{$key}-#{$innerName}-#{$outerName}, $innerValue, quoteOrNot($quotes,$outerValue), $isResponsive)
+      }
+    }
+  }
+}
+
+
+
+@mixin mapToClassCallbackLoop($depth, $key, $map, $property, $function:null){
+  @for $i from 0 through $depth{
+    @each $mapKey, $value in $map{
+      .#{$key}-#{$mapKey}-#{$i} {
+        #{$property}: call($function,$value, $i);
+      }
+    }
+  }
+}
+
+@function generateMapLoop($depth, $function, $passing:null){
+  $map:();
+  @for $i from 0 through $depth{
+    $map: map-merge($map, call($function, $i, $passing))
+  }
+  @return $map;
+}
+
+@mixin mapToClassPure($key, $map, $property, $isResponsive: false, $isStateful:false){
+  @include mapToClass($key, $map, $property, $isResponsive, $isStateful, false)
+}
+
+@mixin mapToClassUnquote($key, $map, $property, $isResponsive:false, $isStateful:false) {
+  @include mapToClass($key, $map, $property, $isResponsive, $isStateful, true)
+}

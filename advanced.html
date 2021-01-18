@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" style="background: #212121">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/gaudiamus.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/theme/dracula.min.css">
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/codemirror.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/addon/lint/lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.0/addon/lint/html-lint.min.js"></script>
+    <style>
+        .container {
+            font-family: 'Lato', sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+<header class="position-fixed position-top-0 raise-1-accent-dark-85 w-100p bg-black-85">
+    <div class="container m-y-2">
+        <a href="index.html" class="text-white hover:text-accent text-decoration-none m-r-4">HOME</a>
+        <a href="playground.html" class="text-white hover:text-accent text-decoration-none m-r-4">PLAYGROUND</a>
+        <a href="advanced.html" class="text-white hover:text-accent text-decoration-none m-r-4">ADVANCED</a>
+    </div>
+</header>
+<div class="container text-white" style="margin-top: 50px;" id="app">
+    <h1 class="font-xl">Gaudiamus Advanced</h1>
+    <p class="font-md">
+        If you made it here, it means you either discovered something missing or
+        want to explore why Gaudiamus dubs itself a framework-builder.
+        Gaudiamus uses mixins and function under the hood that are fully exposed to you. <br>
+        These tools are fully custom and can be used to design your utilities as you wish.
+        The file you want to import is located in at <span class="font-strong text-accent">/scss/components/operations.scss</span>
+    </p>
+    <h2 class="font-xl">Basic example</h2>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+        <code>
+            /* style.scss */<br> <br>
+            @use "../node_modules/gaudiamus-css/scss/components/operations" as ops; <br><br>
+            /* ... depending on your need the regular gaudiamus imports & definitions */ <br><br>
+            $font-families:("arial":"Arial, sans-serif","times":"Times New Roman, serif"); <br><br>
+            @include ops.mapToClassUnquote("font", $font-families, "font-family", false, ("hover","visited"));
+
+        </code>
+    </div>
+    <p class="font-md">
+        This will output the following CSS:
+    </p>
+    <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+        <code>
+            .font-arial, .visited\:font-arial:visited, .hover\:font-arial:hover { <br>
+            &nbsp;font-family: Arial, sans-serif; <br>
+            }<br>
+            <br>
+            .font-times, .visited\:font-times:visited, .hover\:font-times:hover {<br>
+            &nbsp;font-family: Times New Roman, serif;<br>
+            }
+        </code>
+    </div>
+    <p class="font-md">
+        Making the following utility classes available: <br>
+        <span class="text-accent">font-arial, visited:font-arial, hover:font-arial, font-times, visited: font-times, hover: font-times</span>
+    </p>
+    <h2 class="font-xl">Functions & Mixins</h2>
+    <section v-for="op in ops">
+        <gaudiamus-ops :op="op"></gaudiamus-ops>
+    </section>
+
+
+</div>
+<template id="ops">
+    <h3 class="font-lg">{{op.title}}</h3>
+    <ul>
+        <li v-for="param in op.params">{{param}}</li>
+    </ul>
+    <p>{{op.description}}</p>
+    <section>
+        <button class="b-0 b-b-1 b-accent bg-transparent text-accent hover:text-white cursor-pointer p-2 m-b-2"
+                @click="show=!show">Example
+        </button>
+        <article v-if="show">
+            <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+                <code v-html="op.exampleCode"></code>
+            </div>
+            <p class="font-md">
+                This will output the following CSS:
+            </p>
+            <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2">
+                <code v-html="op.exampleOutput"></code>
+            </div>
+        </article>
+
+    </section>
+</template>
+<script>
+    const GaudiamusOps = {
+        data: () => ({show: false}),
+        props: {
+            op: Object
+        },
+        template: document.getElementById('ops')
+    }
+    const ops = [
+        {
+            title: 'generate-states($class, $states)',
+            params: ['$class: string', '$states: list'],
+            description: 'This mixin generates states for a given (existing) class.',
+            exampleCode: `.my-warning{<br>
+                    &nbsp; @extend .bg-warning, .text-white;<br>
+                    }<br>
+                    $states: ("hover","active");<br>
+                    @include ops.generate-states("my-warning", $states);<br>`,
+            exampleOutput: `.my-warning, .active\\:my-warning:active, .hover\\:my-warning:hover { <br>
+                    &nbsp;background-color: #ff3c00; <br>
+                    &nbsp;color: #cfcfcf; <br>
+                    }`
+        }, {
+            title: 'generate-breakpoints($className, $property, $value,  $breakpoint-map)',
+            params: ['$className: string', '$property: string', '$value: mixed', '$breakpoint-map: map'],
+            description: 'This mixin generates breakpoints for a given (existing) class.',
+            exampleCode: `
+                    $breakpoint-map: ("sm":423px, "md":768px, "lg":1024px);<br>
+                    @include ops.generate-breakpoints("my-warning", "color", red, $breakpoint-map);<br>`,
+            exampleOutput: `@media (min-width: 423px) {
+                      .sm\\:my-warning {
+                        color: red !important;
+                      }
+                    }<br><br>
+                    @media (min-width: 768px) {
+                      .md\\:my-warning {
+                        color: red !important;
+                      }
+                    }<br><br>
+                    @media (min-width: 1024px) {
+                      .lg\\:my-warning {
+                        color: red !important;
+                      }
+                    }
+                    `
+        }, {
+            title: 'extendMap($map, $modifyingMap, $function:null)',
+            params: ['$map: map', '$modifyingMap: map', '$function: @function-reference'],
+            description: 'This mixin extends an existing map using a callback pattern.',
+            exampleCode: `
+            $colors:("red":#de0000,"blue":#4b4bf6); <br><br>
+            @function gradientFunc ($property, $value){<br>
+              &nbsp;@return linear-gradient(90deg, $property 0%, $value 90%);<br>
+            }<br><br>
+            $expander:("to-transparent":rgba(0,0,0,0),"to-white":#fff);<br><br>
+            $colors: ops.extendMap($colors, $expander, get-function("gradientFunc"));<br><br>
+            // see mapping mixins <br>
+            @include ops.mapToClassPure("bg", $colors, "background");<br>
+            `,
+            exampleOutput: `
+            .bg-red {<br>
+              &nbsp;background: #de0000;<br>
+            }<br><br>
+            .bg-blue {<br>
+              &nbsp;background: #4b4bf6;<br>
+            }<br><br>
+            .bg-red-to-transparent {<br>
+              &nbsp;background: linear-gradient(90deg, #de0000 0%, rgba(0, 0, 0, 0) 90%);<br>
+            }<br><br>
+            .bg-blue-to-transparent {<br>
+              &nbsp;background: linear-gradient(90deg, #4b4bf6 0%, rgba(0, 0, 0, 0) 90%);<br>
+            }<br><br>
+            .bg-red-to-white {<br>
+              &nbsp;background: linear-gradient(90deg, #de0000 0%, #fff 90%);<br>
+            }<br><br>
+            .bg-blue-to-white {<br>
+              &nbsp;background: linear-gradient(90deg, #4b4bf6 0%, #fff 90%);<br>
+            }
+
+            `
+        }, {
+            title: 'utilityUnitMatcher($className, $property, $depth, $step, $unit)',
+            description: 'Generates unit based utilities for a given range (depth), calculated as iteration times the provided step in a given unit/metric.',
+            params: ['$className: string', '$property: string', '$depth: integer', '$step: number', '$unit: CSS-unit'],
+            exampleCode: '@include ops.utilityUnitMatcher("out", "outline-width", 2, 1, "px")',
+            exampleOutput: `
+                .out-0 { <br>
+                  &nbsp;outline-width: 0em;<br>
+                }<br><br>
+                .out-1 {<br>
+                  &nbsp;outline-width: 0.5em;<br>
+                }<br><br>
+                .out-2 {<br>
+                  &nbsp;outline-width: 1em;<br>
+                }
+            `
+        }, {
+            title: 'mapToClass($key, $map, $property, $isResponsive, $isStateful, $quotes)',
+            params: ['$key: string', '$map: map|list', '$isResponsive: map|falsy', '$isStateful: list|falsy', '$quotes: boolean'],
+            description: `This mixin combines other mixins into a common mapping generation pattern.<br>
+                            It can be used to generate the base, states and media queries for a given map. <br>
+                            Note: mapToClassPure (for maps whose values does not need to be unquoted) & mapToClassUnquote  (for maps whose values need to be unquoted) can be used instead.
+                            They take the first three arguments while leaving the rest optional.
+                            `,
+            exampleCode: `
+            $breakpoint-map:("medium":780px,"large":1024px); <br>
+            $states: ("hover","active");<br>
+            $border-styles:("dotted", "solid", "dashed");<br><br>
+            @include ops.mapToClass("b", $border-styles,"border-style", $breakpoint-map, $states,true);
+            `,
+            exampleOutput: `<br>
+            .b-dotted, .active\\:b-dotted:active, .hover\\:b-dotted:hover {<br>
+            &nbsp;  border-style: dotted;<br>
+            }<br>
+
+            @media (min-width: 780px) {<br>
+            &nbsp;  .medium\\:b-dotted {<br>
+            &nbsp;&nbsp;    border-style: dotted !important;<br>
+            &nbsp;  }<br>
+            }<br>
+            @media (min-width: 1024px) {<br>
+             &nbsp; .large\\:b-dotted {<br>
+            &nbsp;&nbsp;    border-style: dotted !important;<br>
+            &nbsp;  }<br>
+            }<br>
+            .b-solid, .active\\:b-solid:active, .hover\\:b-solid:hover {<br>
+             &nbsp; border-style: solid;<br>
+            }<br>
+
+            @media (min-width: 780px) {<br>
+            &nbsp;  .medium\\:b-solid {<br>
+            &nbsp;&nbsp;    border-style: solid !important;<br>
+            &nbsp;  }<br>
+            }<br>
+            @media (min-width: 1024px) {<br>
+            &nbsp;  .large\\:b-solid {<br>
+            &nbsp;&nbsp;    border-style: solid !important;<br>
+            &nbsp;  }<br>
+            }<br>
+            .b-dashed, .active\\:b-dashed:active, .hover\\:b-dashed:hover {<br>
+            &nbsp;  border-style: dashed;<br>
+            }<br>
+
+            @media (min-width: 780px) {<br>
+            &nbsp;  .medium\\:b-dashed {<br>
+            &nbsp;&nbsp;    border-style: dashed !important;<br>
+            &nbsp;  }<br>
+            }<br>
+            @media (min-width: 1024px) {<br>
+            &nbsp;  .large\\:b-dashed {<br>
+            &nbsp;&nbsp;    border-style: dashed !important;<br>
+            &nbsp;  }<br>
+            }<br>
+
+            `
+    }
+    ];
+    Vue.createApp({
+        components: {
+            GaudiamusOps
+        },
+        data: () => ({
+            ops
+        })
+    }).mount('#app')
+
+</script>
+</body>
+</html>

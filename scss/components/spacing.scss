@@ -1,30 +1,7 @@
-
+@use "operations" as ops;
 .container{
   max-width: calc(100% - 20px);
   margin: $baseSpacing auto;
-}
-
-
-@each $hw, $unit in $height-width-unit-map{
-  @each $value in $height-width-value-map{
-    .w-#{$value}#{$hw}{
-      width: unquote($value+$unit);
-    }
-    .h-#{$value}#{$hw}{
-      height: unquote($value+$unit);
-    }
-    @each $breakpoint, $value in $breakpoint-map {
-      @media (min-width: $value) {
-        .#{$breakpoint}\:w-#{$value}#{$hw}{
-          width: unquote($value+$unit);
-        }
-        .#{$breakpoint}\:h-#{$value}#{$hw}{
-          height: unquote($value+$unit);
-        }
-      }
-    }
-  }
-
 }
 @each $breakpoint, $value in $breakpoint-map {
   @media (min-width: $value) {
@@ -35,11 +12,38 @@
   }
 }
 
-@each $position in $position-map{
-  .#{$position-key}-#{$position}{position: unquote($position)}
-  @each $breakpoint, $value in $breakpoint-map {
-    @media (min-width: $value) {
-      .#{$breakpoint}\:#{$position-key}-#{$position}{position: unquote($position)}
+@mixin widthHeight($key, $property){
+  @each $hw, $unit in $height-width-unit-map{
+    @each $value in $height-width-value-map{
+      .#{$key}-#{$value}#{$hw}{
+        #{$property}: unquote($value+$unit);
+      }
+      @include ops.generate-breakpoints(#{$key}-#{$value}#{$hw}, #{$property}, unquote($value+$unit), $breakpoint-map)
+    }
+  }
+}
+@include widthHeight("w","width");
+@include widthHeight("h","height");
+
+/* Positioning */
+
+@function positioning($iterator, $property){
+  $value:"0";
+  @if($iterator>0){
+    $value: ($iterator * $spacingStep) + $spacingUnit;
+  }
+  @return (#{$property}-#{$iterator}: $value);
+}
+
+@include ops.mapToClassUnquote($position-key, $position-map, "position", $breakpoint-map);
+@each $key, $value in $shorthand-map{
+  @if(type_of($value) != 'map'){
+    $map: ops.generateMapLoop($numSpacingUnits, get-function("positioning"), $value);
+    @include ops.mapToClassUnquote($position-key, $map, $value, $breakpoint-map);
+  } @else {
+    @each $subKey, $subValue in $value{
+      $map: ops.generateMapLoop($numSpacingUnits, get-function("positioning"), $subValue);
+      @include ops.crossMapping($position-key, $map, $value, $breakpoint-map);
     }
   }
 }
@@ -48,33 +52,14 @@
 /* utility generator */
 
 
-@mixin map-to-class($className,$property){
-  @for $i from 1 through $numSpacingUnits{
-    $class: unquote($className+'-'+$i);
-    $calculatedProperty:'';
-    .#{$class} {
-      @each $j, $prop in $property{
-        @if($calculatedProperty == ''){
-          $calculatedProperty:$prop;
-          @if($prop == null){
-            #{$j}: unquote(($i * $spacingStep)+$spacingUnit);
-          }
-        } @else{
-          $p: #{$calculatedProperty}-#{$prop};
-          #{$p}: unquote(($i * $spacingStep)+$spacingUnit);
-        }
 
-      }
-
-    }
-  }
-}
 
 @each $property-class, $property in $property-map {
-  @include map-to-class($property-class,$property);
+  @include ops.crossMapping($property-class, ("auto":"0 auto"), ("x":$property), $breakpoint-map);
+  @include ops.utilityUnitMatcher($property-class,$property, $numSpacingUnits, $spacingStep, $spacingUnit);
   @each $breakpoint, $value in $breakpoint-map {
     @media (min-width: $value) {
-      @include map-to-class('#{$breakpoint}\\:#{$property-class}',$property);
+      @include ops.utilityUnitMatcher('#{$breakpoint}\\:#{$property-class}',$property, $numSpacingUnits, $spacingStep, $spacingUnit);
     }
   }
   @each $property-modifier, $property-addon in $shorthand-map{
@@ -87,10 +72,10 @@
     } @else {
       $p-end: map_merge($p-map,(1:$property-addon));
     }
-    @include map-to-class($class,$p-end);
+    @include ops.utilityUnitMatcher($class,$p-end, $numSpacingUnits, $spacingStep, $spacingUnit);
     @each $breakpoint, $value in $breakpoint-map {
       @media (min-width: $value) {
-        @include map-to-class('#{$breakpoint}\\:#{$class}',$p-end);
+        @include ops.utilityUnitMatcher('#{$breakpoint}\\:#{$class}',$p-end, $numSpacingUnits, $spacingStep, $spacingUnit);
       }
     }
   }

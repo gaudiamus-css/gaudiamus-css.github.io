@@ -1,3 +1,4 @@
+@use "operations" as ops;
 
 .#{$grid-container-prefix}{
   display: grid;
@@ -7,16 +8,7 @@
   grid-template-rows: auto;
 }
 
-@each $property, $propertyValue in $placement-properties{
-  @each $axis, $placementValue in $placement-map{
-    .#{$placement-key}-#{$axis}-#{$property}{ #{$placementValue}: unquote($propertyValue)}
-    @each $breakpoint, $value in $breakpoint-map {
-      @media (min-width: $value) {
-        .#{$breakpoint}\:#{$placement-key}-#{$axis}-#{$property}{ #{$placementValue}: unquote($propertyValue)}
-      }
-    }
-  }
-}
+@include ops.crossMapping($placement-key, $placement-properties, $placement-map, $breakpoint-map);
 
 @mixin deep-grid($currentTotal, $currentClass, $currentValues, $level){
   @for $k from 1 through $columns{

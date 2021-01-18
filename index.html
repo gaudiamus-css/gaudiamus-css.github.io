@@ -7,12 +7,12 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="manifest" href="site.webmanifest">
+<!--    <link rel="manifest" href="site.webmanifest">-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
     <link rel="stylesheet" href="css/gaudiamus.min.css">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
         .container {
             font-family: 'Lato', sans-serif;
@@ -37,9 +37,16 @@
     </style>
 </head>
 <body>
+<header class="position-fixed position-top-0 raise-1-accent-dark-85 w-100p bg-black-85">
+    <div class="container m-y-2">
+        <a href="index.html" class="text-white hover:text-accent text-decoration-none m-r-4">HOME</a>
+        <a href="playground.html" class="text-white hover:text-accent text-decoration-none m-r-4">PLAYGROUND</a>
+        <a href="advanced.html" class="text-white hover:text-accent text-decoration-none m-r-4">ADVANCED</a>
+    </div>
+</header>
 <button class="b-rounded b-transparent hover:raise-1-white bg-primary text-white to-top" id="top-btn">up</button>
-<div class="container text-white" x-data="component()">
-    <div class="grid-12">
+<div class="container text-white m-t-5" x-data="component()">
+    <div class="grid-12 m-t-5">
         <img src="gaudiamus-logo.png" alt="logo" class="place-x-center" style="max-width: 60%">
     </div>
     <h1 class="font-xxl" id="title">Gaudiamus</h1>
@@ -53,8 +60,8 @@
         level.
 
     </p>
-    <div class="grid-6-6 md:grid-4-4-4 lg:grid-2-2-2-2-2-2"
-         x-data="{links:[ 'installation','grid', 'utilities', 'compositions', 'typography', 'colors']}">
+    <div class="grid-6-6 md:grid-4-4-4 lg:grid-3-3-3-3"
+         x-data="{links:[ 'installation','grid', 'utilities', 'compositions', 'typography', 'colors', 'display', 'single-import']}">
         <template x-for="link in links">
             <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-1 m-1 hover:raise-1-white"
                x-bind:href="'#'+link" x-text="link.toUpperCase()"></a>
@@ -131,6 +138,17 @@
             href="https://cdn.jsdelivr.net/npm/gaudiamus-css@latest/css/gaudiamus.min.css">
         </div>
     </div>
+    <h3 class="font-md text-accent m-t-5">Above & Beyond</h3>
+    <p class="font-md ">
+        See
+        <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-x-1 m-1 hover:raise-1-white" href="#single-import">
+            SINGLE-IMPORT
+        </a> for "Level 2" and
+        <a class="b-rounded b-1 b-accent text-black bg-accent text-decoration-none font-strong place-x-stretch p-x-1 m-1 hover:raise-1-white" href="advanced.html">
+            ADVANCED</a>
+        for "Level 3".
+
+    </p>
 
 
     <h2 class="font-xl" id="grid">➩ The grid system</h2>
@@ -287,18 +305,19 @@
     <p class="font-md">
         These settings define how positioning, spacing & shading utility classes are constructed. The patterns are <br>
         spacing: <br>
-        <code class="font-default">[{state}:]{property-map-key}[-{shorthand-map-key}]-{unit}</code> <br>
+        <code class="font-default">[{breakpoint}:]{property-map-key}[-{shorthand-map-key}]-{number}</code> <br>
         height & width: <br>
-        <code class="font-default">[{state}:]w-{height-width-value-key}{height-width-unit-map-key}</code> <br>
-        <code class="font-default">[{state}:]h-{height-width-value-key}{height-width-unit-map-key}</code> <br>
+        <code class="font-default">[{breakpoint}:]w-{height-width-value-key}{height-width-unit-map-key}</code> <br>
+        <code class="font-default">[{breakpoint}:]h-{height-width-value-key}{height-width-unit-map-key}</code> <br>
         position: <br>
-        <code class="font-default">[{state}:]{position-key}-{position-map-key}</code> <br>
+        <code class="font-default">[{breakpoint}:]{position-key}-{position-map-key}</code> <br>
+        <code class="font-default">[{breakpoint}:]{position-key}-{shorthand-map-key (simple values)}-{number}</code> <br>
         cursor: <br>
         <code class="font-default">{cursor-key}-{cursor-map-key}</code> <br>
         border: <br>
-        <code class="font-default">[{state}:]{border-key}[-{shorthand-map-key}][-unit|[{rounded-key}[-depthUnit]]|[-{color-map-key}]]</code> <br>
+        <code class="font-default">[{state | breakpoint}:]{border-key}[-{shorthand-map-key}][-number|[{rounded-key}[-depthUnit]]|[-{color-map-key}]]</code> <br>
         elevation: <br>
-        <code class="font-default">[{state}:]{raise-key}-{unit}</code> <br>
+        <code class="font-default">[{state | breakpoint}:]{raise-key}-{number}</code> <br>
     </p>
     <div class="bg-black b-rounded hover:bg-gray hover:raise-1-accent hover:text-accent p-2 ">
         <code>
@@ -441,7 +460,63 @@
             &lt;/p>
         </code>
     </div>
+    <h2 class="font-xl" id="display">➩ Display</h2>
+    <p class="font-md">
+        Display handles simple show/hide scenarios as well as basic flexbox behavior for edge-cases.
+        The following variables are at your disposal:
+    </p>
+    <article class="font-md">
+        <div class="grid-12 md:grid-5-7">
+            <p><strong>Variable</strong></p>
+            <p><strong>Default value</strong></p>
+        </div>
+        <template x-for="color in data.display">
+            <div class="grid-12 md:grid-5-7">
+                <p><strong class="text-primary" x-text="color.name">$primaryColor</strong></p>
+                <p x-text="color.value"></p>
+            </div>
 
+        </template>
+    </article>
+    <p class="font-md">
+        These settings define how utility classes for display are constructed. The pattern is <br>
+        <code class="font-default">[{state | breakpoint}:]{$display-key}-{$display-map-key}</code> <br>
+        <code class="font-default">[{state | breakpoint}:]{$flex-key}-{$flex-map-key}</code> <br>
+    </p>
+    <h2 class="font-xl" id="single-import">➩ Single import</h2>
+    <p class="font-md">
+        <span class="font-lg">Level 2</span> would be including gaudiamus files directly depending on your needs. In that case,
+        used variables <span class="font-strong">have to</span> be defined before importing the file! <br>
+        This requires an understanding of what variables are used where & when. Feel free to explore the following files or use this project's README
+        as a variable guide.
+    </p>
+    <ul>
+        <li class="p-2">
+            <strong>scss/components/colors.scss</strong>
+        </li>
+        <li class="p-2">
+            <strong>scss/components/display.scss</strong>
+        </li>
+        <li class="p-2">
+            <strong>scss/components/grid.scss</strong>
+        </li>
+        <li class="p-2">
+            <strong>scss/components/operations.scss</strong> (see "Level3")
+        </li>
+        <li class="p-2">
+            <strong>scss/components/shading.scss</strong>
+        </li>
+        <li class="p-2">
+            <strong>scss/components/spacing.scss</strong>
+        </li>
+        <li class="p-2">
+            <strong>scss/components/typography.scss</strong>
+        </li>
+    </ul>
+    <p class="font-md">
+        If you made it thus far, then customizing further or adding your own requirements might become of interest.
+        Please visit <a class="text-accent text-decoration-none" href="advanced.html">Advanced</a> for further customization.
+    </p>
     <div class="m-t-5 m-b-5 text-transparent">spacer</div>
 </div>
 <style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#258cc7;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style>
@@ -505,7 +580,7 @@
                             '        "95": .96,\n' +
                             ')',
                     },
-                    {name: '$state-map', value: '("focus","hover","active")'}
+
                 ],
                 utilities: [
                     {name: '$baseSpacing', value: '20px'},
@@ -520,13 +595,14 @@
                     {name: '$position-key', value: 'position'},
                     {name: '$position-map', value: '("relative","absolute","fixed")'},
                     {name: '$height-width-unit-map', value: '("p":"%")'},
-                    {name: '$height-width-value-map', value: '("25", "50", "75", "100")'},
+                    {name: '$height-width-value-map', value: '("25", "50", "75", "80", "100")'},
                     {name: '$depth', value: 3},
                     {name: '$spread', value: '4px'},
                     {name: '$border-key', value: 'b'},
                     {name: '$raise-key', value: 'raise'},
                     {name: '$cursor-key', value: 'cursor'},
                     {name: '$cursor-map', value: '("pointer":"pointer")'},
+                    {name: '$state-map', value: '("focus","hover","active")'}
                 ],
                 grid: [
                     {name: '$grid-container-prefix', value: 'grid'},
@@ -548,6 +624,12 @@
                             ')'},
                     {name: '$decoration-map', value: '("underline","none")'},
                     {name: '$weight-map', value: '("light":200,"strong":700)'},
+                ],
+                display: [
+                    {name: '$display-key', value: 'd'},
+                    {name: '$display-map', value: '("hidden":"none", "flex":"flex", "block":"block")'},
+                    {name: '$flex-key', value: 'f'},
+                    {name: '$flex-map', value: '("1":"1")'},
                 ]
             }
         }

@@ -1,0 +1,3 @@
+@use "operations" as ops;
+@include ops.mapToClassUnquote($display-key, $display-map, "display", $breakpoint-map, $state-map);
+@include ops.mapToClassUnquote($flex-key, $flex-map, "flex", $breakpoint-map, $state-map);
