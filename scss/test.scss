@@ -1,0 +1,15 @@
+@use "components/operations" as ops;
+
+
+$colors:("red":#de0000,"blue":#4b4bf6);
+
+$breakpoint-map:("medium":780px,"large":1024px);
+$states: ("hover","active");
+$border-styles:("dotted", "solid", "dashed");
+
+@include ops.mapToClass("b", $border-styles,"border-style", $breakpoint-map, $states,true);
+
+
+
+
+
