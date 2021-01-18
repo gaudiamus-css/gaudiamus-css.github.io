@@ -1,3 +1,4 @@
+![gaudiamus-logo](apple-touch-icon.png)
 # Gaudiamus CSS
 
 CSS framework builder using SCSS 
@@ -152,6 +153,11 @@ $fontSize-map:(
 );
 $decoration-map:("underline","none");
 $weight-map:("light":200,"strong":700);
+
+$display-key: "d";
+$display-map: ("hidden":"none", "flex":"flex", "block":"block");
+$flex-key: "f";
+$flex-map: ("1":"1");
 
 @import "../node_modules/gaudiamus-css/scss";
 ```
