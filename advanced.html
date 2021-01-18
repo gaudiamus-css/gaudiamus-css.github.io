@@ -67,6 +67,13 @@
         <span class="text-accent">font-arial, visited:font-arial, hover:font-arial, font-times, visited: font-times, hover: font-times</span>
     </p>
     <h2 class="font-xl">Functions & Mixins</h2>
+    <p class="font-md b-1 b-warning-50 b-rounded p-2">
+        The following introduction offers examples that might seem constructed.
+        The real potential is derived from being able to combine mixins and functions
+        accordingly in combination with native SASS functionality.
+        In case you are unfamiliar with deeper SASS, feel free to copy & paste examples
+        and start by adding to maps, changing variables etc.
+    </p>
     <section v-for="op in ops">
         <gaudiamus-ops :op="op"></gaudiamus-ops>
     </section>
@@ -78,7 +85,7 @@
     <ul>
         <li v-for="param in op.params">{{param}}</li>
     </ul>
-    <p>{{op.description}}</p>
+    <p v-html="op.description"></p>
     <section>
         <button class="b-0 b-b-1 b-accent bg-transparent text-accent hover:text-white cursor-pointer p-2 m-b-2"
                 @click="show=!show">Example
@@ -181,7 +188,7 @@
             title: 'utilityUnitMatcher($className, $property, $depth, $step, $unit)',
             description: 'Generates unit based utilities for a given range (depth), calculated as iteration times the provided step in a given unit/metric.',
             params: ['$className: string', '$property: string', '$depth: integer', '$step: number', '$unit: CSS-unit'],
-            exampleCode: '@include ops.utilityUnitMatcher("out", "outline-width", 2, 1, "px")',
+            exampleCode: '@include ops.utilityUnitMatcher("out", "outline-width", 2, .5, "em")',
             exampleOutput: `
                 .out-0 { <br>
                   &nbsp;outline-width: 0em;<br>
@@ -196,10 +203,10 @@
         }, {
             title: 'mapToClass($key, $map, $property, $isResponsive, $isStateful, $quotes)',
             params: ['$key: string', '$map: map|list', '$isResponsive: map|falsy', '$isStateful: list|falsy', '$quotes: boolean'],
-            description: `This mixin combines other mixins into a common mapping generation pattern.<br>
+            description: `This mixin combines other mixins into a common mapping generation pattern. <br>
                             It can be used to generate the base, states and media queries for a given map. <br>
-                            Note: mapToClassPure (for maps whose values does not need to be unquoted) & mapToClassUnquote  (for maps whose values need to be unquoted) can be used instead.
-                            They take the first three arguments while leaving the rest optional.
+                            <br><i>Note:</i> mapToClassPure (for maps whose values do <strong>not</strong> need to be unquoted) & mapToClassUnquote  (for maps whose values need to be unquoted) can be used instead.
+                            They take the first three arguments while leaving the rest optional. The parameter $quotes is filled accordingly.
                             `,
             exampleCode: `
             $breakpoint-map:("medium":780px,"large":1024px); <br>
@@ -252,7 +259,174 @@
             }<br>
 
             `
-    }
+    },{
+        title: 'mapToClassCallback($key, $map, $property, $function)',
+            params: ['$key: string','$map: map|list', '$property: string', '$function: @function-reference'],
+            description: `Same as mapToClass, but uses a callback function for more complex values.`,
+            exampleCode: `
+            $text-shadow:("3d":"2px","3d-deep":"5px"); <br>
+            @function shadow($val, $key){<br>
+              &nbsp;@return 2px unquote($val) 2px #ccc;<br>
+            }<br><br>
+            @include ops.mapToClassCallback("text", $text-shadow, "text-shadow", get-function("shadow"));
+            `,
+            exampleOutput: `
+            .text-3d {<br>
+              &nbsp;text-shadow: 2px 2px 2px #ccc;<br>
+            }<br><br>
+            .text-3d-deep {<br>
+              &nbsp;text-shadow: 2px 5px 2px #ccc;<br>
+            }
+            `
+        },{
+        title: 'mapToClassCallbackLoop($depth, $key, $map, $property, $function)',
+            params: ['$depth: integer','$key: string','$map: map', '$property: string','$function: @function-reference'],
+            description: `Let's kick it up a notch! This mixin behaves like mapToClassCallback, but is intended for iterations.`,
+            exampleCode: `
+            $directions:("left":-1,"right":1); <br><br>
+            @function turnMe($value, $iterator){ <br>
+              &nbsp;$calc: (45 * $iterator * $value)+"deg"; <br>
+              &nbsp;@return rotate(unquote($calc)); <br>
+            } <br><br>
+            @include ops.mapToClassCallbackLoop(3, "rotate", $directions, "transform", get-function("turnMe"));
+            `,
+            exampleOutput: `
+            .rotate-left-0 {<br>
+             &nbsp; transform: rotate(0deg);<br>
+            }<br><br>
+            .rotate-right-0 {<br>
+             &nbsp; transform: rotate(0deg);<br>
+            }<br><br>
+            .rotate-left-1 {<br>
+             &nbsp; transform: rotate(-45deg);<br>
+            }<br><br>
+            .rotate-right-1 {<br>
+             &nbsp; transform: rotate(45deg);<br>
+            }<br><br>
+            .rotate-left-2 {<br>
+             &nbsp; transform: rotate(-90deg);<br>
+            }<br><br>
+            .rotate-right-2 {<br>
+            &nbsp;  transform: rotate(90deg);<br>
+            }<br><br>
+            .rotate-left-3 {<br>
+            &nbsp;  transform: rotate(-135deg);<br>
+            }<br><br>
+            .rotate-right-3 {<br>
+             &nbsp; transform: rotate(135deg);<br>
+            }<br><br>
+            `
+        },{
+        title: 'crossMapping($key, $outerMap, $innerMap, $isResponsive:false, $isStateful:false, $quotes:true)',
+            description: `This mixin combines two maps for deeper utility generation. <br>
+                The resulting pattern is <i>.{key}-{innerMap-key}-{outerMap-key}{ innerMapValue: outerMapValue }</i>. <br>
+                crossMapping is best used in combination with other mixins (hence the constructed example to keep it simple).`,
+            params: ['$key: string','$outerMap: map', '$innerMap: map', '$isResponsive: map|falsy', '$isStateful: list|falsy', '$quotes: boolean (defaults to true)'],
+            exampleCode: `
+            $breakpoints:("md":756px,"lg":1024px);<br>
+            $outer:("auto":"0 auto","even":"0 5vw");<br>
+            $inner:("x":"margin");<br><br>
+            @include ops.crossMapping("m", $outer, $inner, $breakpoints);
+            `,
+            exampleOutput: `
+            .m-x-auto { <br>
+            &nbsp;  margin: 0 auto;<br>
+            }<br><br>
+
+            @media (min-width: 756px) {<br>
+            &nbsp;  .md\\:m-x-auto {<br>
+            &nbsp;&nbsp;    margin: 0 auto !important;<br>
+            &nbsp;  }<br>
+            }<br>
+            @media (min-width: 1024px) {<br>
+            &nbsp;  .lg\\:m-x-auto {<br>
+            &nbsp;&nbsp;    margin: 0 auto !important;<br>
+            &nbsp;  }<br>
+            }<br>
+            .m-x-even {<br>
+            &nbsp;  margin: 0 5vw;<br>
+            }<br><br>
+
+            @media (min-width: 756px) {<br>
+            &nbsp;  .md\\:m-x-even {<br>
+            &nbsp;&nbsp;    margin: 0 5vw !important;<br>
+            &nbsp;  }<br>
+            }<br>
+            @media (min-width: 1024px) {<br>
+            &nbsp;  .lg\\:m-x-even {<br>
+            &nbsp;&nbsp;    margin: 0 5vw !important;<br>
+            &nbsp;  }<br>
+            }
+            `
+        },
+        {
+            title: "generateMapLoop($depth, $function, $passing:null)",
+            params: ['$depth: integer', '$function: @function-reference', '$passing: any'],
+            description: `This function returns a map based on an iteration and a call-back function. <br>
+            The example will therefore be a use-case rather than a pure example.`,
+            exampleCode: `
+                // Instead of integers, let's name our variations this time ... <br>
+                $references:("none","half","full","zoom");<br><br>
+
+                @function scaling($iterator, $name){<br>
+                &nbsp;  $value: $iterator * .5;<br>
+                &nbsp;  // ... and retrieve the name by the iterator (don't forget that sass lists start from 1, not 0!!)<br>
+                &nbsp;  $reference: nth($references, $iterator+1);<br>
+                &nbsp;  @if($name){<br>
+                &nbsp;&nbsp;    @return (#{$name}-#{$reference}: $value);<br>
+                &nbsp;  }<br>
+                &nbsp;  @return (#{$reference}:$value);<br>
+                }<br>
+                @function zoomClasses($val, $key){<br>
+                &nbsp;  @if(str-index($key,"y-") != null){<br>
+                &nbsp;&nbsp;    @return scaleY($val);<br>
+                &nbsp;  }<br>
+                &nbsp;  @if(str-index($key,"x-") != null){<br>
+                &nbsp;&nbsp;    @return scaleX($val);<br>
+                &nbsp;  }<br>
+                &nbsp;  @return scale($val);<br>
+                }<br><br>
+                @each $scaleType in (null,"y","x"){<br>
+                &nbsp;  $map: ops.generateMapLoop(3, get-function("scaling"), $scaleType);<br>
+                &nbsp;  @include ops.mapToClassCallback("scale", $map, "transform", get-function("zoomClasses"));<br>
+                }
+            `,
+            exampleOutput: `
+                .scale-none {<br>
+                &nbsp;  transform: scale(0);<br>
+                }<br><br>
+                .scale-half {<br>
+                &nbsp;  transform: scale(0.5);<br>
+                }<br><br>
+                .scale-full {<br>
+                &nbsp;  transform: scale(1);<br>
+                }<br><br>
+                .scale-zoom {<br>
+                &nbsp;  transform: scale(1.5);<br>
+                }<br><br>
+                .scale-y-none {<br>
+                &nbsp;  transform: scaleY(0);<br>
+                }<br><br>
+                .scale-y-half {<br>
+                &nbsp;  transform: scaleY(0.5);<br>
+                }<br><br>
+                .scale-y-full {<br>
+                &nbsp;  transform: scaleY(1);<br>
+                }<br><br>
+                .scale-x-none {<br>
+                &nbsp;  transform: scaleX(0);<br>
+                }<br><br>
+                .scale-x-half {<br>
+                &nbsp;  transform: scaleX(0.5);<br>
+                }<br><br>
+                .scale-x-full {<br>
+                &nbsp;  transform: scaleX(1);<br>
+                }<br><br>
+                .scale-x-zoom {<br>
+                &nbsp;  transform: scaleX(1.5);<br>
+                }
+            `
+        }
     ];
     Vue.createApp({
         components: {
