@@ -6,7 +6,15 @@
 $grid-container-prefix: 'grid' !default;
 $columns: 12 !default;
 $items: 6 !default;
-$breakpoint-map: ("md":768px, "lg":1024px) !default;
+$breakpoint-map: (
+        "xs": 320px,
+        "sm": 425px,
+        "md":768px,
+        "lg": 1024px,
+        "xl": 1440px,
+        "xxl": 2560px,
+        'xxxl': 3440px
+) !default;
 $placement-key: "place" !default;
 $placement-map: ("x":"justify-self", "y":"align-self") !default;
 $placement-properties: ("start":"start", "end":"end", "center":"center", "stretch":"stretch") !default;
@@ -91,6 +99,14 @@ $raise-key: "raise" !default;
 $cursor-key: "cursor" !default;
 $cursor-map: ("pointer":"pointer") !default;
 
+/* Border styles */
+$border-styles-map:(
+  "none": "none",
+  "hidden": "hidden",
+  "dotted": "dotted",
+  "solid": "solid",
+  "double": "double",
+);
 
 @import "components/shading";
 
@@ -106,7 +122,34 @@ $fontSize-map: (
         "xxl":12
 ) !default;
 $decoration-map: ("underline", "none") !default;
+$decoration-style-map:(
+  "wave",
+  "solid",
+  "double",
+  "dotted",
+  "dashed"
+);
 $weight-map: ("light":200, "strong":700) !default;
+
+$text-transform-map: (
+  "uppercase",
+  "lowercase",
+  "capitalize",
+  "normal-case"
+);
+
+$text-overflow: (
+  "truncate",
+  "overflow-ellipsis",
+  "overflow-clip"
+);
+
+$text-align: (
+  "right",
+  "center",
+  "left",
+  "justify"
+);
 
 @import "components/typography";
 
@@ -120,3 +163,43 @@ $flex-key: "f" !default;
 $flex-map: ("1":"1") !default;
 
 @import "components/display";
+
+
+/* Overflow */
+$overflow-map: (
+  "visible": "visible",
+  "hidden": "hidden",
+  "scroll": "scroll",
+  "auto": "auto",
+  "none": "none",
+);
+
+$overflow-direction: ("x","y");
+
+/* Z-Index */
+$z-index-map: (
+  "0": 0,
+  "10": 10,
+  "20": 20,
+  "30": 30,
+  "40": 40,
+  "50": 50,
+  "auto": "auto",
+);
+
+/* Cursor */
+$mouse-cursor: (
+  "cursor-auto": "auto",
+  "cursor-default": "default",
+  "cursor-pointer": "pointer",
+  "cursor-wait": "wait",
+  "cursor-text": "text",
+  "cursor-move": "move",
+  "cursor-not-allowed": "not-allowed",
+);
+
+/* User Select */
+$select-map: ("none", "text", "all", "auto");
+
+/* List Styles */
+$list-styles:("none","square","disc");
