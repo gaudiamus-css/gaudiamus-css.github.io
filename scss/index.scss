@@ -97,7 +97,7 @@ $rounded-key: "rounded" !default;
 $raise-key: "raise" !default;
 
 $cursor-key: "cursor" !default;
-$cursor-map: ("pointer":"pointer") !default;
+$cursor-map: ("pointer":"pointer","wait":"wait","move":"move","not-allowed":"not-allowed") !default;
 
 /* Border styles */
 $border-styles-map:(
@@ -185,17 +185,6 @@ $z-index-map: (
   "40": 40,
   "50": 50,
   "auto": "auto",
-);
-
-/* Cursor */
-$mouse-cursor: (
-  "cursor-auto": "auto",
-  "cursor-default": "default",
-  "cursor-pointer": "pointer",
-  "cursor-wait": "wait",
-  "cursor-text": "text",
-  "cursor-move": "move",
-  "cursor-not-allowed": "not-allowed",
 );
 
 /* User Select */
