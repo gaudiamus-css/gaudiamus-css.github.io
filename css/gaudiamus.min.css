@@ -116884,54 +116884,12 @@ html, body, iframe {
   font-size: 3rem;
 }
 
-.text-underline-wavy {
-  text-decoration-line: underline;
-  text-decoration-style: wavy;
+.text-decoration-underline {
+  text-decoration: underline;
 }
 
-.text-underline-solid {
-  text-decoration-line: underline;
-  text-decoration-style: solid;
-}
-
-.text-underline-double {
-  text-decoration-line: underline;
-  text-decoration-style: double;
-}
-
-.text-underline-dotted {
-  text-decoration-line: underline;
-  text-decoration-style: dotted;
-}
-
-.text-underline-dashed {
-  text-decoration-line: underline;
-  text-decoration-style: dashed;
-}
-
-.text-none-wavy {
-  text-decoration-line: none;
-  text-decoration-style: wavy;
-}
-
-.text-none-solid {
-  text-decoration-line: none;
-  text-decoration-style: solid;
-}
-
-.text-none-double {
-  text-decoration-line: none;
-  text-decoration-style: double;
-}
-
-.text-none-dotted {
-  text-decoration-line: none;
-  text-decoration-style: dotted;
-}
-
-.text-none-dashed {
-  text-decoration-line: none;
-  text-decoration-style: dashed;
+.text-decoration-none {
+  text-decoration: none;
 }
 
 .font-light {
@@ -116940,50 +116898,6 @@ html, body, iframe {
 
 .font-strong {
   font-weight: 700;
-}
-
-.text-uppercase {
-  text-transform: uppercase;
-}
-
-.text-lowercase {
-  text-transform: lowercase;
-}
-
-.text-capitalize {
-  text-transform: capitalize;
-}
-
-.text-normal-case {
-  text-transform: normal-case;
-}
-
-.text-truncate {
-  text-transform: truncate;
-}
-
-.text-overflow-ellipsis {
-  text-transform: overflow-ellipsis;
-}
-
-.text-overflow-clip {
-  text-transform: overflow-clip;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.text-justify {
-  text-align: justify;
 }
 
 /*
