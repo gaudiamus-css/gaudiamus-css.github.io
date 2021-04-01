@@ -1,40 +1,12 @@
-@each $name, $step in $fontSize-map {
-  .font-#{$name} {
-    font-size: unquote($step * $spacingStep + $spacingUnit)
-  }
+@each $name, $step in $fontSize-map{
+  .font-#{$name} { font-size: unquote($step * $spacingStep + $spacingUnit) }
+}
+
+@each $decoration in $decoration-map{
+  .text-decoration-#{$decoration}{ text-decoration: unquote($decoration)}
 }
 
 
-@each $decoration in $decoration-map {
-  @each $decoration-style in $decoration-style-map {
-    .text-#{$decoration}-#{$decoration-style} {
-      text-decoration-line: unquote($decoration);
-      text-decoration-style: unquote($decoration-style);
-    }
-  }
-}
-
-
-@each $name, $value in $weight-map {
-  .font-#{$name} {
-    font-weight: $value
-  }
-}
-
-@each $transform in $text-transform-map {
-  .text-#{$transform} {
-    text-transform: unquote($transform);
-  }
-}
-
-@each $overflow in $text-overflow {
-  .text-#{$overflow} {
-    text-transform: #{$overflow};
-  }
-}
-
-@each $align in $text-align {
-  .text-#{$align} {
-    text-align: #{$align}
-  }
+@each $name, $value in $weight-map{
+  .font-#{$name}{ font-weight: $value}
 }
