@@ -1,43 +1,56 @@
 /* border */
 
-@for $i from 0 through $depth{
-  .#{$border-key}-#{$i}{ border-width: #{$i}px; border-style:  solid;}
-  @each $name, $side in $shorthand-map{
-    .#{$border-key}-#{$name}-#{$i}{
-      @if(type-of($side) == 'map'){
-        @each $sub-name, $s-side in $side{
-          border-#{$s-side}-width: #{$i}px; border-#{$s-side}-style:  solid;
-        }
-      } @else {
-        border-#{$side}-width: #{$i}px; border-#{$side}-style:  solid;
-      }
+@for $i from 0 through $depth {
+  @each $type, $style in $border-styles-map {
+    .#{$border-key}-#{$i}-#{$type} {
+      border-width: #{$i}px;
+      border-style: unquote($style);
     }
-    @each $state in $state-map{
-      .#{$state}\:#{$border-key}-#{$name}-#{$i}:#{$state} {
-        @if(type-of($side) == 'map'){
-          @each $sub-name, $s-side in $side{
-            border-#{$s-side}-width: #{$i}px; border-#{$s-side}-style:  solid;
+
+    @each $name, $side in $shorthand-map {
+      .#{$border-key}-#{$name}-#{$i}-#{$type} {
+        @if (type-of($side) == 'map') {
+          @each $sub-name, $s-side in $side {
+            border-#{$s-side}-width: #{$i}px;
+            border-#{$s-side}-style: unquote($style);
           }
         } @else {
-          border-#{$side}-width: #{$i}px; border-#{$side}-style:  solid;
+          border-#{$side}-width: #{$i}px;
+          border-#{$side}-style: unquote($style);
         }
+      }
+      @each $state in $state-map {
+        .#{$state}\:#{$border-key}-#{$name}-#{$i}-#{$type}:#{$state} {
+          @if (type-of($side) == 'map') {
+            @each $sub-name, $s-side in $side {
+              border-#{$s-side}-width: #{$i}px;
+              border-#{$s-side}-style: unquote($style);
+            }
+          } @else {
+            border-#{$side}-width: #{$i}px;
+            border-#{$side}-style: unquote($style);
+          }
+
+        }
+
 
       }
 
 
     }
-
-
-  }
-  @each $state in $state-map{
-    .#{$state}\:#{$border-key}-#{$i}:#{$state} {
-      border-width: #{$i}px; border-style:  solid;
+    @each $state in $state-map {
+      .#{$state}\:#{$border-key}-#{$i}-#{$type}:#{$state} {
+        border-width: #{$i}px;
+        border-style: unquote($style);
+      }
     }
   }
 }
-.#{$border-key}-#{$rounded-key}{
+
+.#{$border-key}-#{$rounded-key} {
   border-radius: unquote($spacingStep+$spacingUnit);
 }
+
 @for $i from 1 through $depth {
   .#{$border-key}-#{$rounded-key}-#{$i} {
     border-radius: unquote(($spacingStep*$i)+$spacingUnit);
@@ -48,12 +61,12 @@
 /* rise */
 
 
-@for $i from 1 through $depth{
-  @each $subclass, $value in $color-map{
+@for $i from 1 through $depth {
+  @each $subclass, $value in $color-map {
     .#{$raise-key}-#{$i}-#{$subclass} {
       box-shadow: unquote($i*.5*$spacingStep+$spacingUnit) + ' ' unquote(($i*.75)*$spacingStep+$spacingUnit) + ' ' + $spread $value
     }
-    @each $state in $state-map{
+    @each $state in $state-map {
       .#{$state}\:#{$raise-key}-#{$i}-#{$subclass}:#{$state} {
         box-shadow: unquote($i*.5*$spacingStep+$spacingUnit) + ' ' unquote(($i*.75)*$spacingStep+$spacingUnit) + ' ' + $spread $value
       }
@@ -63,8 +76,11 @@
 
 /* cursor */
 
-@each $name, $value in $cursor-map{
-  .#{$cursor-key}-#{$name}{ cursor: unquote($value)};
+@each $name, $value in $cursor-map {
+  .#{$cursor-key}-#{$name} {
+    cursor: unquote($value)
+  }
+;
 }
 
 
