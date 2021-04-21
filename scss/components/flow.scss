@@ -1,0 +1,19 @@
+// Overflow rules
+
+@each $property, $style in $overflow-map{
+  @each $axis in $overflow-direction{
+    .overflow-#{$property} {
+      overflow: unquote($style);
+    }
+    .overflow-#{$axis}-#{$property}{
+      overflow-#{$axis}: unquote($style);
+    }
+  }
+}
+
+// Z-Index
+@each $z, $index in $z-index-map{
+  .z-#{$z}{
+    z-index: $index;
+  }
+}

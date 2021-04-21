@@ -187,6 +187,8 @@ $z-index-map: (
   "auto": "auto",
 );
 
+@import "components/flow";
+
 /* User Select */
 $select-map: ("none", "text", "all", "auto");
 
