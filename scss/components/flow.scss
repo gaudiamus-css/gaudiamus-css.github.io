@@ -1,4 +1,4 @@
-// Overflow rules
+@use "operations" as ops;
 
 @each $property, $style in $overflow-map{
   @each $axis in $overflow-direction{
@@ -12,8 +12,4 @@
 }
 
 // Z-Index
-@each $z, $index in $z-index-map{
-  .z-#{$z}{
-    z-index: $index;
-  }
-}
+@include ops.mapToClassPure("z", $z-index-map, "z-index", $breakpoint-map, $state-map);
