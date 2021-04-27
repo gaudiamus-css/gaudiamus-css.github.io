@@ -1,26 +1,20 @@
 /* border */
-
-@for $i from 0 through $depth {
-  @each $type, $style in $border-styles-map {
-    .#{$border-key}-#{$i}-#{$type} {
-      border-width: #{$i}px;
-      border-style: unquote($style);
-    }
-
-    @each $name, $side in $shorthand-map {
-      .#{$border-key}-#{$name}-#{$i}-#{$type} {
-        @if (type-of($side) == 'map') {
-          @each $sub-name, $s-side in $side {
-            border-#{$s-side}-width: #{$i}px;
-            border-#{$s-side}-style: unquote($style);
-          }
-        } @else {
-          border-#{$side}-width: #{$i}px;
-          border-#{$side}-style: unquote($style);
+@each $break, $point in $breakpoint-map {
+  @for $i from 0 through $depth {
+    @each $type, $style in $border-styles-map {
+      .#{$border-key}-#{$i}-#{$type} {
+        border-width: #{$i}px;
+        border-style: unquote($style);
+      }
+      @media(min-width: $point) {
+        .#{$break}\:#{$border-key}-#{$i}-#{$type} {
+          border-width: #{$i}px;
+          border-style: unquote($style);
         }
       }
-      @each $state in $state-map {
-        .#{$state}\:#{$border-key}-#{$name}-#{$i}-#{$type}:#{$state} {
+
+      @each $name, $side in $shorthand-map {
+        .#{$border-key}-#{$name}-#{$i}-#{$type} {
           @if (type-of($side) == 'map') {
             @each $sub-name, $s-side in $side {
               border-#{$s-side}-width: #{$i}px;
@@ -30,18 +24,39 @@
             border-#{$side}-width: #{$i}px;
             border-#{$side}-style: unquote($style);
           }
-
         }
-
-
+        @media(min-width: $point) {
+          .#{$break}\:#{$border-key}-#{$name}-#{$i}-#{$type} {
+            @if (type-of($side) == 'map') {
+              @each $sub-name, $s-side in $side {
+                border-#{$s-side}-width: #{$i}px;
+                border-#{$s-side}-style: unquote($style);
+              }
+            } @else {
+              border-#{$side}-width: #{$i}px;
+              border-#{$side}-style: unquote($style);
+            }
+          }
+        }
+        @each $state in $state-map {
+          .#{$state}\:#{$border-key}-#{$name}-#{$i}-#{$type}:#{$state} {
+            @if (type-of($side) == 'map') {
+              @each $sub-name, $s-side in $side {
+                border-#{$s-side}-width: #{$i}px;
+                border-#{$s-side}-style: unquote($style);
+              }
+            } @else {
+              border-#{$side}-width: #{$i}px;
+              border-#{$side}-style: unquote($style);
+            }
+          }
+        }
       }
-
-
-    }
-    @each $state in $state-map {
-      .#{$state}\:#{$border-key}-#{$i}-#{$type}:#{$state} {
-        border-width: #{$i}px;
-        border-style: unquote($style);
+      @each $state in $state-map {
+        .#{$state}\:#{$border-key}-#{$i}-#{$type}:#{$state} {
+          border-width: #{$i}px;
+          border-style: unquote($style);
+        }
       }
     }
   }
@@ -60,15 +75,18 @@
 
 /* rise */
 
-
-@for $i from 1 through $depth {
-  @each $subclass, $value in $color-map {
-    .#{$raise-key}-#{$i}-#{$subclass} {
-      box-shadow: unquote($i*.5*$spacingStep+$spacingUnit) + ' ' unquote(($i*.75)*$spacingStep+$spacingUnit) + ' ' + $spread $value
-    }
-    @each $state in $state-map {
-      .#{$state}\:#{$raise-key}-#{$i}-#{$subclass}:#{$state} {
-        box-shadow: unquote($i*.5*$spacingStep+$spacingUnit) + ' ' unquote(($i*.75)*$spacingStep+$spacingUnit) + ' ' + $spread $value
+@each $break, $point in $breakpoint-map {
+  @for $i from 1 through $depth {
+    @each $subclass, $value in $color-map {
+      @media(min-width: $point) {
+        .#{$raise-key}-#{$i}-#{$subclass} {
+          box-shadow: unquote($i*.5*$spacingStep+$spacingUnit) + ' ' unquote(($i*.75)*$spacingStep+$spacingUnit) + ' ' + $spread $value
+        }
+      }
+      @each $state in $state-map {
+        .#{$state}\:#{$raise-key}-#{$i}-#{$subclass}:#{$state} {
+          box-shadow: unquote($i*.5*$spacingStep+$spacingUnit) + ' ' unquote(($i*.75)*$spacingStep+$spacingUnit) + ' ' + $spread $value
+        }
       }
     }
   }
