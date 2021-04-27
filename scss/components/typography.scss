@@ -1,3 +1,5 @@
+@use "operations" as ops;
+
 @each $name, $step in $fontSize-map {
   .font-#{$name} {
     font-size: unquote($step * $spacingStep + $spacingUnit)
@@ -13,26 +15,10 @@
   }
 }
 
-@each $name, $value in $weight-map {
-  .font-#{$name} {
-    font-weight: $value
-  }
-}
+@include ops.mapToClassPure("font", $weight-map, "font-weight", $breakpoint-map, $state-map);
 
-@each $transform in $text-transform-map {
-  .text-#{$transform} {
-    text-transform: unquote($transform);
-  }
-}
+@include ops.mapToClass("text", $text-transform-map, "text-transform", $breakpoint-map, $state-map, true);
 
-@each $overflow in $text-overflow {
-  .text-#{$overflow} {
-    text-transform: #{$overflow};
-  }
-}
+@include ops.mapToClass("text", $text-overflow, "text-overflow", $breakpoint-map, $state-map, true);
 
-@each $align in $text-align {
-  .text-#{$align} {
-    text-align: #{$align};
-  }
-}
+@include ops.mapToClass("text", $text-align, "text-align", $breakpoint-map, $state-map, true);

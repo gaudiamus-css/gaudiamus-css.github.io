@@ -139,9 +139,8 @@ $text-transform-map: (
 );
 
 $text-overflow: (
-  "truncate",
-  "overflow-ellipsis",
-  "overflow-clip"
+  "ellipsis",
+  "clip"
 );
 
 $text-align: (
