@@ -1,0 +1,11 @@
+@each $select in $select-map {
+  .select-#{select}{
+    user-select: unquote(#{$select});
+  }
+}
+
+@each $list in $list-styles{
+  .list-#{$list}{
+    list-style-type: unquote(#{$list});
+  }
+}
