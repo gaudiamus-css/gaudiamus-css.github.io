@@ -1,0 +1,24 @@
+@use "operations" as ops;
+
+@each $name, $step in $fontSize-map {
+  .font-#{$name} {
+    font-size: unquote($step * $spacingStep + $spacingUnit)
+  }
+}
+
+@each $decoration in $decoration-map {
+  @each $decoration-style in $decoration-style-map {
+    .text-#{$decoration}-#{$decoration-style} {
+      text-decoration-line: unquote($decoration);
+      text-decoration-style: unquote($decoration-style);
+    }
+  }
+}
+
+@include ops.mapToClassPure("font", $weight-map, "font-weight", $breakpoint-map, $state-map);
+
+@include ops.mapToClass("text", $text-transform-map, "text-transform", $breakpoint-map, $state-map, true);
+
+@include ops.mapToClass("text", $text-overflow, "text-overflow", $breakpoint-map, $state-map, true);
+
+@include ops.mapToClass("text", $text-align, "text-align", $breakpoint-map, $state-map, true);
