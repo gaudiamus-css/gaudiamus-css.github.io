@@ -14,6 +14,7 @@
     }
   }
 }
+
 @include ops.mapToClassPure("font", $weight-map, "font-weight", $breakpoint-map, $state-map);
 
 @include ops.mapToClass("text", $text-transform-map, "text-transform", $breakpoint-map, $state-map, true);
