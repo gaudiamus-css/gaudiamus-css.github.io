@@ -123,7 +123,7 @@ $fontSize-map: (
 ) !default;
 $decoration-map: ("underline", "none") !default;
 $decoration-style-map:(
-  "wavy",
+  "wave",
   "solid",
   "double",
   "dotted",
@@ -184,13 +184,13 @@ $z-index-map: (
   "30": 30,
   "40": 40,
   "50": 50,
-  "auto": "auto",
+  "auto": auto,
 );
+
+@import "components/flow";
 
 /* User Select */
 $select-map: ("none", "text", "all", "auto");
 
 /* List Styles */
 $list-styles:("none","square","disc");
-
-@import "resets/base";

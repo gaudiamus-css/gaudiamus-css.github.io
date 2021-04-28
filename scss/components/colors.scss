@@ -10,7 +10,7 @@ $color-map: ops.extendMap($color-map, $opacity-map, get-function("rgba"));
 
 // generate
 @each $prefix, $property in $color-class-map {
-  @include ops.mapToClassPure($prefix, $color-map, $property, $breakpoint-map, $state-map)
+  @include ops.mapToClassPure($prefix, $color-map, $property, false, $state-map)
 }
 
 
