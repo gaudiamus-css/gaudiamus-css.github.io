@@ -97,16 +97,18 @@ $rounded-key: "rounded" !default;
 $raise-key: "raise" !default;
 
 $cursor-key: "cursor" !default;
-$cursor-map: ("pointer":"pointer","wait":"wait","move":"move","not-allowed":"not-allowed") !default;
+$cursor-map: ("pointer":"pointer", "wait":"wait", "move":"move", "not-allowed":"not-allowed") !default;
 
 /* Border styles */
-$border-styles-map:(
-  "none": "none",
-  "hidden": "hidden",
-  "dotted": "dotted",
-  "solid": "solid",
-  "double": "double",
+$border-styles-map: (
+        "none": "none",
+        "hidden": "hidden",
+        "dotted": "dotted",
+        "dashed": "dashed",
+        "solid": "solid",
+        "double": "double"
 );
+
 
 @import "components/shading";
 
@@ -122,33 +124,33 @@ $fontSize-map: (
         "xxl":12
 ) !default;
 $decoration-map: ("underline", "none") !default;
-$decoration-style-map:(
-  "wave",
-  "solid",
-  "double",
-  "dotted",
-  "dashed"
+$decoration-style-map: (
+        "wavy",
+        "solid",
+        "double",
+        "dotted",
+        "dashed"
 );
 $weight-map: ("light":200, "strong":700) !default;
 
 $text-transform-map: (
-  "uppercase",
-  "lowercase",
-  "capitalize",
-  "normal-case"
+        "uppercase",
+        "lowercase",
+        "capitalize",
+        "normal-case"
 );
 
 $text-overflow: (
-  "truncate",
-  "overflow-ellipsis",
-  "overflow-clip"
+        "truncate",
+        "overflow-ellipsis",
+        "overflow-clip"
 );
 
 $text-align: (
-  "right",
-  "center",
-  "left",
-  "justify"
+        "right",
+        "center",
+        "left",
+        "justify"
 );
 
 @import "components/typography";
@@ -167,30 +169,28 @@ $flex-map: ("1":"1") !default;
 
 /* Overflow */
 $overflow-map: (
-  "visible": "visible",
-  "hidden": "hidden",
-  "scroll": "scroll",
-  "auto": "auto",
-  "none": "none",
+        "visible": "visible",
+        "hidden": "hidden",
+        "scroll": "scroll",
+        "auto": "auto",
+        "none": "none",
 );
 
-$overflow-direction: ("x","y");
+$overflow-direction: ("x", "y");
 
 /* Z-Index */
 $z-index-map: (
-  "0": 0,
-  "10": 10,
-  "20": 20,
-  "30": 30,
-  "40": 40,
-  "50": 50,
-  "auto": auto,
+        "0": 0,
+        "10": 10,
+        "20": 20,
+        "30": 30,
+        "40": 40,
+        "50": 50,
+        "auto": "auto",
 );
-
-@import "components/flow";
 
 /* User Select */
 $select-map: ("none", "text", "all", "auto");
 
 /* List Styles */
-$list-styles:("none","square","disc");
+$list-styles: ("none", "square", "disc");
