@@ -1,0 +1,15 @@
+@use "operations" as ops;
+
+@each $property, $style in $overflow-map{
+  @each $axis in $overflow-direction{
+    .overflow-#{$property} {
+      overflow: unquote($style);
+    }
+    .overflow-#{$axis}-#{$property}{
+      overflow-#{$axis}: unquote($style);
+    }
+  }
+}
+
+// Z-Index
+@include ops.mapToClassPure("z", $z-index-map, "z-index", $breakpoint-map, $state-map);
