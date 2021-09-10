@@ -14,7 +14,7 @@
   @for $k from 1 through $columns{
     $newTotal: $currentTotal + $k;
     @if ($newTotal <= $columns){
-      $newValues: unquote($currentValues + ' '+(100/12*($k))+'%');
+      $newValues: unquote($currentValues + ' '+(math.div(100, 12)*($k))+'%');
       $newClass: unquote($currentClass + '-'+ ($k));
       #{$newClass} { grid-template-columns: $newValues }
       @if($level < $items){
