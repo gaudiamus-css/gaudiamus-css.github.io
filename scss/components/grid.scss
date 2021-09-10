@@ -1,4 +1,5 @@
 @use "operations" as ops;
+@use "sass:math";
 
 .#{$grid-container-prefix}{
   display: grid;
