@@ -1,6 +1,6 @@
 {
   "name": "gaudiamus-css",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "keywords": ["scss","css grid","css framework"],
   "description": "css-grid based css-only framework for the creator & minimalist",
   "main": "scss/index.scss",
